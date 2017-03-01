@@ -22,11 +22,10 @@ import { ENV_PROVIDERS } from './environment';
 import { ROUTES } from './app.routes';
 // App is our top level component
 import { AppComponent } from './app.component';
-import { NoContentComponent } from './pages/no-content';
+import { NoContentComponent } from './no-content';
 
-
-import '../styles/styles.scss';
-import '../styles/headings.css';
+import '../assets/css/styles.scss';
+import '../assets/css/headings.css';
 
 // Application wide providers
 const APP_PROVIDERS = [];

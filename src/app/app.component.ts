@@ -19,6 +19,7 @@ import {
   ],
   template: `
     App is working
+    <router-outlet></router-outlet>
   `
 })
 export class AppComponent implements OnInit {
@@ -26,10 +27,8 @@ export class AppComponent implements OnInit {
   public name = 'Angular 2 Webpack Starter';
   public url = 'https://twitter.com/AngularClass';
 
-  constructor() {
-  }
+  constructor() {}
 
-  public ngOnInit() {
-  }
+  public ngOnInit() {}
 
 }
