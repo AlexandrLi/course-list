@@ -23,12 +23,9 @@ import {
   `
 })
 export class AppComponent implements OnInit {
-  public angularclassLogo = 'assets/img/angularclass-avatar.png';
-  public name = 'Angular 2 Webpack Starter';
-  public url = 'https://twitter.com/AngularClass';
 
-  constructor() {}
+  constructor() { }
 
-  public ngOnInit() {}
+  public ngOnInit() { }
 
 }
