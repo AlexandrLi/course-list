@@ -24,6 +24,9 @@ import { ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
 import { NoContentComponent } from './no-content';
 
+import { CoreModule } from './core';
+import { CoursesModule } from './courses';
+
 import '../assets/css/styles.scss';
 import '../assets/css/headings.css';
 
@@ -43,6 +46,8 @@ const APP_PROVIDERS = [];
     BrowserModule,
     FormsModule,
     HttpModule,
+    CoreModule,
+    CoursesModule,
     RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules })
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection

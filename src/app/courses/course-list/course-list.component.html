@@ -1,0 +1,8 @@
+<div>
+  <input type="text" [(ngModel)]="input" placeholder="name fragment or date">
+  <button (click)="find()">Find</button>
+  <button>Add course</button>
+  <div class="bordered" *ngFor="let course of courses">
+    <course-item [course]="course" (delete)="removeCourse($event)"></course-item>
+  </div>
+</div>

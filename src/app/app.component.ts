@@ -18,8 +18,9 @@ import {
     './app.component.css'
   ],
   template: `
-    App is working
-    <router-outlet></router-outlet>
+    <my-header></my-header>
+<router-outlet></router-outlet>
+    <my-footer></my-footer>
   `
 })
 export class AppComponent implements OnInit {
