@@ -27,8 +27,6 @@ import { NoContentComponent } from './no-content';
 import { CoreModule } from './core';
 import { CoursesModule } from './courses';
 
-import '../assets/css/styles.css';
-
 // Application wide providers
 const APP_PROVIDERS = [];
 
