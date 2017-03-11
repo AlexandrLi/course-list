@@ -1,8 +1,19 @@
-<div>
-  <input type="text" [(ngModel)]="input" placeholder="name fragment or date">
-  <button (click)="find()">Find</button>
-  <button>Add course</button>
-  <div class="bordered" *ngFor="let course of courses">
-    <course-item [course]="course" (delete)="removeCourse($event)"></course-item>
+<div class="toolbar">
+  <form class="search">
+    <input type="text" name="query" [(ngModel)]="query" placeholder="name, fragment or date">
+    <button (click)="find()">Find</button>
+  </form>
+  <div class="add">
+    <button>Add course</button>
   </div>
 </div>
+<ul class="courses">
+  <li *ngFor="let course of courses">
+    <course-item [course]="course" (delete)="removeCourse($event)"></course-item>
+  </li>
+</ul>
+<!--<div>
+  <div class="container" *ngFor="let course of courses">
+    <course-item [course]="course" (delete)="removeCourse($event)"></course-item>
+  </div>
+</div>-->

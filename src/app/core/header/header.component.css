@@ -1,20 +1,35 @@
-.bordered {
-  display: table;
+.header {
   height: 100px;
-  width: 100%;
-  border: 1px solid black;
 }
 
 .logo {
-  height: 100px;
-  width: auto;
-  display: table-cell;
+  display: inline-block;
+  width: 50%;
   vertical-align: middle;
 }
 
-.title {
-  display: table-cell;
-  vertical-align: middle;
+.logo img {
+  float: left;
+  height: 100px;
+  margin-left: 20px;
+}
+
+.logo h2 {
   font-size: 20px;
-  font-family: Courier New, Courier, monospace;
+  margin-top: 10%;
+}
+
+.breadcrumbs {
+  width: 28%;
+  display: inline-block;
+}
+
+.cabinet {
+  width: 20%;
+  display: inline-block;
+  text-align: right;
+}
+
+.cabinet p {
+  margin: 1px;
 }

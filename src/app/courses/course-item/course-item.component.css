@@ -1,0 +1,33 @@
+.row {
+  display: inline-block;
+}
+
+.content {
+  width: 75%;
+}
+
+.controls {
+  width: 24%;
+  vertical-align: top;
+}
+
+.controls button {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.content p {
+  width: 28%;
+  display: inline-block;
+  margin: 2%;
+}
+
+.content .description {
+  display: block;
+  width: 96%;
+  text-align: justify;
+}
+
+.content .date {
+  text-align: right;
+}

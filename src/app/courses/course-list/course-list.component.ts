@@ -9,7 +9,7 @@ import { Course } from '../shared/course.model';
 export class CourseListComponent implements OnInit {
 
     public courses: Course[];
-    public input: string = '';
+    public query: string = '';
 
     constructor() {
         this.courses = [];
@@ -22,27 +22,27 @@ export class CourseListComponent implements OnInit {
                 title: 'Mock Course 1',
                 duration: 30,
                 creationDate: new Date(),
-                description: 'dummy course description 1'
+                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris enim arcu, ultrices at feugiat a, mattis vitae urna.'
             },
             {
                 id: 2,
                 title: 'Mock Course 2',
                 duration: 70,
                 creationDate: new Date(),
-                description: 'dummy course description 2'
+                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris enim arcu, ultrices at feugiat a, mattis vitae urna.'
             },
             {
                 id: 3,
-                title: 'Mock Course',
+                title: 'Mock Course 3',
                 duration: 100,
                 creationDate: new Date(),
-                description: 'dummy course description 3'
+                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris enim arcu, ultrices at feugiat a, mattis vitae urna.'
             },
         ];
     }
 
     public find() {
-        console.log(this.input);
+        console.log(this.query);
     }
 
     public removeCourse(removeObj: { id: number }): void {

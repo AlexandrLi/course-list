@@ -9,7 +9,8 @@ import { Course } from '../shared/course.model';
 
 @Component({
     selector: 'course-item',
-    templateUrl: './course-item.component.html'
+    templateUrl: './course-item.component.html',
+    styleUrls: ['./course-item.component.css']
 })
 export class CourseItemComponent implements OnInit {
     @Input() public course: Course;

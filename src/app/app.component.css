@@ -1,8 +1,28 @@
-html, body{
-  height: 100%;
-  font-family: Arial, Helvetica, sans-serif
+html,
+body,
+h1,
+h2,
+h3,
+p,
+ol,
+ul,
+li,
+a {
+  padding: 0;
+  border: 0;
+  margin: 0;
 }
 
-a.active {
-  background-color: gray;
+body {
+  border: 20px solid grey;
+  padding: 20px 20px 0 20px;
+  font-family: 'Overlock';
+  font-size: 14px;
+  width: 50%;
+  margin: 20px auto;
+}
+
+.container {
+  border: 1px solid black;
+  margin: 10px 0px;
 }
