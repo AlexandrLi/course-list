@@ -8,7 +8,7 @@ import { Component, OnInit, } from '@angular/core';
 export class HeaderComponent implements OnInit {
 
     public logoURL: string = '../../../assets/img/angular-logo.png';
-    public title: string = 'ng2-course-list';
+    public title: string = 'Mentoring Program';
 
     constructor() { }
 
