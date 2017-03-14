@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 
-import { HeaderComponent } from './header/header.component';
-import { BreadcrumbsComponent } from './header/breadcrumbs/breadcrumbs.component';
-import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header';
+import { BreadcrumbsComponent } from './header/breadcrumbs';
+import { FooterComponent } from './footer';
 
 @NgModule({
     imports: [],
