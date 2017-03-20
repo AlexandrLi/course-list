@@ -1,0 +1,17 @@
+<form>
+  <div class="input-group">
+    <div class="label">
+      <label for="login">Login</label>
+    </div>
+    <input id="login" type="text" [(ngModel)]="login" name="login" required>
+    <span>* enter</span>
+  </div>
+  <div class="input-group">
+    <div class="label">
+      <label for="password">Password</label>
+    </div>
+    <input id="password" type="password" [(ngModel)]="password" name="password" required>
+    <span>* enter</span>
+  </div>
+  <button type="submit" (click)="signIn()">Enter</button>
+</form>

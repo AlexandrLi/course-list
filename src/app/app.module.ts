@@ -22,6 +22,7 @@ import { ENV_PROVIDERS } from './environment';
 import { ROUTES } from './app.routes';
 // App is our top level component
 import { AppComponent } from './app.component';
+import { AuthorizationComponent } from './authorization';
 import { NoContentComponent } from './no-content';
 
 import { CoreModule } from './core';
@@ -37,6 +38,7 @@ const APP_PROVIDERS = [];
   bootstrap: [AppComponent],
   declarations: [
     AppComponent,
+    AuthorizationComponent,
     NoContentComponent
   ],
   imports: [ // import Angular's modules

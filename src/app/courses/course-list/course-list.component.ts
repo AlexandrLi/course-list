@@ -1,3 +1,4 @@
+import { CoursesService } from './../shared/courses.service';
 import {
     Component,
     OnInit,
@@ -30,84 +31,51 @@ export class CourseListComponent implements
     public courses: Course[];
     public query: string = '';
 
-    constructor() {
-        console.log('Contructor');
+    constructor(private coursesService: CoursesService) {
         this.courses = [];
     }
-
-
 
     public find(): void {
         console.log(this.query);
     }
 
-    public removeCourse(removeObj: { id: number }): void {
-        console.log(removeObj);
-        this.courses = this.courses.filter((course: Course) => {
-            return course.id !== removeObj.id;
-        });
+    public removeCourse(id: number): void {
+        if (confirm('Do you really want to delete this course?')) {
+            if (this.coursesService.removeItem(id)) {
+                this.courses = this.coursesService.getList();
+            }
+        }
     }
 
     public ngOnInit(): void {
-        this.courses = [
-            {
-                id: 1,
-                title: 'Mock Course 1',
-                duration: 30,
-                creationDate: new Date(),
-                description:
-                `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Mauris enim arcu, ultrices at feugiat a, mattis vitae urna.`
-            },
-            {
-                id: 2,
-                title: 'Mock Course 2',
-                duration: 70,
-                creationDate: new Date(),
-                description:
-                `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Mauris enim arcu, ultrices at feugiat a, mattis vitae urna.`
-            },
-            {
-                id: 3,
-                title: 'Mock Course 3',
-                duration: 100,
-                creationDate: new Date(),
-                description:
-                `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Mauris enim arcu, ultrices at feugiat a, mattis vitae urna.`
-            },
-        ];
+        this.courses = this.coursesService.getList();
     }
 
     public ngAfterContentInit(): void {
-        console.log('AfterContentInit');
+        // remove no_empty rule notification
     }
 
     public ngAfterContentChecked(): void {
-        console.log('AfterContentChecked');
+        // remove no_empty rule notification
     }
 
     public ngAfterViewInit(): void {
-        console.log('AfterViewInit');
+        // remove no_empty rule notification
     }
 
     public ngAfterViewChecked(): void {
-        console.log('AfterViewChecked');
+        // remove no_empty rule notification
     }
-
 
     public ngOnDestroy(): void {
-        console.log('OnDestroy');
+        // remove no_empty rule notification
     }
-
 
     public ngDoCheck(): void {
-        console.log('DoCheck');
+        // remove no_empty rule notification
     }
 
-
     public ngOnChanges(changes: SimpleChanges): void {
-        console.log('OnChanges');
+        // remove no_empty rule notification
     }
 }

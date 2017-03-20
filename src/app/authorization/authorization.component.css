@@ -1,0 +1,18 @@
+form{
+  margin: 100px auto;
+  margin-right: 10%;
+  text-align: center;
+}
+
+.input-group{
+  margin: 10px auto;
+}
+
+.label {
+  display: inline-block;
+  width: 100px;
+}
+
+button{
+  width: 100px;
+}

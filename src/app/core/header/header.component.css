@@ -33,3 +33,8 @@
 .cabinet p {
   margin: 1px;
 }
+
+.clickable{
+  text-decoration: underline;
+  cursor: pointer;
+}

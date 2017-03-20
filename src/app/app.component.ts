@@ -23,10 +23,5 @@ import {
     <my-footer></my-footer>
   `
 })
-export class AppComponent implements OnInit {
-
-  constructor() { }
-
-  public ngOnInit() { }
-
+export class AppComponent {
 }
