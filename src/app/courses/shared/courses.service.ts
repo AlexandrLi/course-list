@@ -3,7 +3,7 @@ import { Course } from './course.model';
 
 @Injectable()
 export class CoursesService {
-  public courses: Course[] =
+  private courses: Course[] =
   [
     {
       id: 1,
@@ -53,11 +53,10 @@ export class CoursesService {
   public removeItem(id: number): boolean {
     let success = false;
     this.courses = this.courses.filter((course: Course) => {
-      if (course.id === id) {
-        success = true;
-      }
+      success = success || course.id === id;
       return course.id !== id;
     });
     return success;
   }
+
 }
