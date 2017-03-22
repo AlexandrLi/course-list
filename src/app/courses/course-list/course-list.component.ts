@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { AuthorizationService } from './../../core/authorization.service';
 import { CoursesService } from './../shared/courses.service';
 import {
     Component,
@@ -31,7 +33,10 @@ export class CourseListComponent implements
     public courses: Course[];
     public query: string = '';
 
-    constructor(private coursesService: CoursesService) {
+    constructor(
+        private coursesService: CoursesService,
+        private authService: AuthorizationService,
+        private router: Router) {
         this.courses = [];
     }
 
@@ -48,6 +53,9 @@ export class CourseListComponent implements
     }
 
     public ngOnInit(): void {
+        if (!this.authService.isAuthenticated()) {
+            this.router.navigate(['login']);
+        }
         this.courses = this.coursesService.getList();
     }
 

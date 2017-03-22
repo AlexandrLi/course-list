@@ -7,12 +7,17 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './authorization.component.html',
   styleUrls: ['./authorization.component.css']
 })
-export class AuthorizationComponent {
+export class AuthorizationComponent implements OnInit {
   public login: string = '';
   public password: string = '';
 
   constructor(private authService: AuthorizationService, private router: Router) {
+  }
 
+  public ngOnInit() {
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/courses']);
+    }
   }
 
   public signIn(): void {
