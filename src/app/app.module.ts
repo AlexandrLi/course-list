@@ -24,6 +24,7 @@ import { ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
 import { AuthorizationComponent } from './authorization';
 import { NoContentComponent } from './no-content';
+import { LoaderComponent } from './shared/loader';
 
 import { CoreModule } from './core';
 import { CoursesModule } from './courses';
@@ -39,7 +40,8 @@ const APP_PROVIDERS = [];
   declarations: [
     AppComponent,
     AuthorizationComponent,
-    NoContentComponent
+    NoContentComponent,
+    LoaderComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,
