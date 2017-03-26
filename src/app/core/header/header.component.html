@@ -3,10 +3,10 @@
     <img [src]=logoURL alt="logo">
     <h2>{{title}}</h2>
   </div>
-  <div *ngIf="isAuthenticated" class="breadcrumbs">
+  <div *ngIf="authService.isAuthenticated()" class="breadcrumbs">
     <p>Courses</p>
   </div>
-  <div *ngIf="isAuthenticated" class="cabinet">
+  <div *ngIf="authService.isAuthenticated()" class="cabinet">
     <p>User: {{currentUsername}}</p>
     <p class="clickable" (click)="logout()">logoff</p>
   </div>

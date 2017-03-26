@@ -20,7 +20,6 @@ export class HeaderComponent implements DoCheck {
 
     public ngDoCheck() {
         this.currentUsername = this.authService.getUserInfo();
-        this.isAuthenticated = this.authService.isAuthenticated();
     }
 
     public logout() {
