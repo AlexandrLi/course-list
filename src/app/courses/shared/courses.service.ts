@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Course } from './course.model';
+import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class CoursesService {
@@ -34,29 +36,29 @@ export class CoursesService {
     }
   ];
 
-  public getList(): Course[] {
-    return this.courses;
+  public getList(): Observable<Course[]> {
+    return Observable.of(this.courses);
   }
 
-  public createCourse(): Course {
+  public createCourse(): Observable<Course> {
     return null;
   }
 
-  public getItemById(id: number): Course {
+  public getItemById(id: number): Observable<Course> {
     return null;
   }
 
-  public updateItem(course: Course): Course {
+  public updateItem(course: Course): Observable<Course> {
     return null;
   }
 
-  public removeItem(id: number): boolean {
+  public removeItem(id: number): Observable<boolean> {
     let success = false;
     this.courses = this.courses.filter((course: Course) => {
       success = success || course.id === id;
       return course.id !== id;
     });
-    return success;
+    return Observable.of(success);
   }
 
 }

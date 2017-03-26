@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { AuthorizationService } from './../../core/authorization.service';
-import { CoursesService } from './../shared/courses.service';
+import { CoursesService } from './../shared';
 import {
     Component,
     OnInit,
@@ -46,17 +46,18 @@ export class CourseListComponent implements
 
     public removeCourse(id: number): void {
         if (confirm('Do you really want to delete this course?')) {
-            if (this.coursesService.removeItem(id)) {
-                this.courses = this.coursesService.getList();
+            let deleted: boolean;
+            this.coursesService.removeItem(id).subscribe((result) => deleted = result);
+            if (deleted) {
+                this.coursesService.getList()
+                    .subscribe((courses) => this.courses = courses);
             }
         }
     }
 
     public ngOnInit(): void {
-        if (!this.authService.isAuthenticated()) {
-            this.router.navigate(['login']);
-        }
-        this.courses = this.coursesService.getList();
+        this.coursesService.getList()
+            .subscribe((courses) => this.courses = courses);
     }
 
     public ngAfterContentInit(): void {
