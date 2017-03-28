@@ -5,36 +5,22 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class CoursesService {
-  private courses: Course[] =
-  [
-    {
-      id: 1,
-      title: 'Mock Course 1',
-      duration: 30,
-      creationDate: new Date(),
-      description:
-      `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+  private courses: Course[] = [];
+
+  constructor() {
+    for (let i = 0; i < 10; i++) {
+      this.courses.push({
+        id: i,
+        title: `Mock Course ${i}`,
+        duration: 10 + i * 3,
+        creationDate: new Date(),
+        description:
+        `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
                 Mauris enim arcu, ultrices at feugiat a, mattis vitae urna.`
-    },
-    {
-      id: 2,
-      title: 'Mock Course 2',
-      duration: 70,
-      creationDate: new Date(),
-      description:
-      `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Mauris enim arcu, ultrices at feugiat a, mattis vitae urna.`
-    },
-    {
-      id: 3,
-      title: 'Mock Course 3',
-      duration: 100,
-      creationDate: new Date(),
-      description:
-      `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Mauris enim arcu, ultrices at feugiat a, mattis vitae urna.`
+      });
+
     }
-  ];
+  }
 
   public getList(): Observable<Course[]> {
     return Observable.of(this.courses);
