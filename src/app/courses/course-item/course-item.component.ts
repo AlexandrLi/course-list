@@ -5,7 +5,7 @@ import {
     Output,
     EventEmitter,
     ChangeDetectionStrategy,
-    NgZone
+    ChangeDetectorRef
 } from '@angular/core';
 import { Course } from '../shared';
 
@@ -18,11 +18,6 @@ import { Course } from '../shared';
 export class CourseItemComponent {
     @Input() public course: Course;
     @Output() public delete = new EventEmitter<number>();
-
-    constructor(private _ngZone: NgZone) {
-        _ngZone.onStable.subscribe(() => console.log('stable ' + new Date().toTimeString()));
-        _ngZone.onUnstable.subscribe(() => console.log('unstable ' + new Date().toTimeString()));
-    }
 
     public deleteCourse(): void {
         this.delete.emit(this.course.id);
