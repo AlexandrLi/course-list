@@ -1,33 +1,3 @@
-.toolbar {
-  margin: 10px 0;
-}
-
-.toolbar .add {
-  width: 49%;
-  display: inline-block;
-  text-align: right;
-}
-
-.add button {
-  font-size: 0.9rem;
-  width: 100px;
-}
-
-.search {
-  width: 50%;
-  display: inline-block;
-}
-
-.search input {
-  width: 70%;
-  font-size: 0.9rem;
-}
-
-.search button {
-  width: 60px;
-  font-size: 0.9rem;
-}
-
 .courses {
   list-style-type: none;
 }

@@ -5,13 +5,18 @@ import { FormsModule } from '@angular/forms';
 
 import { CourseListComponent } from './course-list';
 import { CourseItemComponent } from './course-item';
+import { ToolbarComponent } from './toolbar';
 
 @NgModule({
     imports: [FormsModule, CommonModule],
-    exports: [CourseListComponent, CourseItemComponent],
+    exports: [
+        CourseListComponent,
+        CourseItemComponent,
+    ],
     declarations: [
         CourseListComponent,
-        CourseItemComponent],
+        CourseItemComponent,
+        ToolbarComponent],
     providers: [CoursesService],
 })
 export class CoursesModule { }

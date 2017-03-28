@@ -1,5 +1,4 @@
 import { Router } from '@angular/router';
-import { AuthorizationService } from './../../core/authorization.service';
 import { CoursesService } from './../shared';
 import {
     Component,
@@ -11,14 +10,16 @@ import {
     AfterViewChecked,
     AfterViewInit,
     AfterContentChecked,
-    AfterContentInit
+    AfterContentInit,
+    ChangeDetectionStrategy
 } from '@angular/core';
 import { Course } from '../shared/course.model';
 
 @Component({
     selector: 'course-list',
     templateUrl: 'course-list.component.html',
-    styleUrls: ['./course-list.component.css']
+    styleUrls: ['./course-list.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseListComponent implements
     OnChanges,
@@ -31,17 +32,10 @@ export class CourseListComponent implements
     OnDestroy {
 
     public courses: Course[];
-    public query: string = '';
 
     constructor(
-        private coursesService: CoursesService,
-        private authService: AuthorizationService,
-        private router: Router) {
+        private coursesService: CoursesService, private router: Router) {
         this.courses = [];
-    }
-
-    public find(): void {
-        console.log(this.query);
     }
 
     public removeCourse(id: number): void {
