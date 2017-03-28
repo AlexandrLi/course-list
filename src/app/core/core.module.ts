@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { HeaderComponent } from './header';
 import { BreadcrumbsComponent } from './header/breadcrumbs';
 import { FooterComponent } from './footer';
-import { AuthorizationService } from './authorization.service';
+import { AuthorizationService } from './services';
 
 @NgModule({
     imports: [CommonModule],
