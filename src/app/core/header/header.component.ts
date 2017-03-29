@@ -1,29 +1,33 @@
 import { Router } from '@angular/router';
-import { AuthorizationService } from './../authorization.service';
-import { Component, DoCheck } from '@angular/core';
+import { AuthorizationService } from './../services';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { User } from './../../authorization';
 
 @Component({
     selector: 'my-header',
     templateUrl: './header.component.html',
-    styleUrls: ['./header.component.css']
+    styleUrls: ['./header.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HeaderComponent implements DoCheck {
+export class HeaderComponent {
 
     public logoURL: string = '../../../assets/img/angular-logo.png';
     public title: string = 'Mentoring Program';
-    public currentUsername: string = '';
-    public isAuthenticated: boolean;
+    public currentUser: User;
 
-    constructor(private authService: AuthorizationService, private router: Router) {
-        this.isAuthenticated = this.authService.isAuthenticated();
-    }
-
-    public ngDoCheck() {
-        this.currentUsername = this.authService.getUserInfo();
+    constructor(
+        public authService: AuthorizationService,
+        private router: Router,
+        private ref: ChangeDetectorRef) {
+        this.authService.userInfo.subscribe(
+            (user) => {
+                this.currentUser = user;
+                this.ref.markForCheck();
+            });
     }
 
     public logout() {
-        this.authService.logout();
-        this.router.navigate(['/login']);
+        this.authService.logout()
+            .subscribe(() => this.router.navigate(['/login']));
     }
 }

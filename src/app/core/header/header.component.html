@@ -7,7 +7,7 @@
     <p>Courses</p>
   </div>
   <div *ngIf="authService.isAuthenticated()" class="cabinet">
-    <p>User: {{currentUsername}}</p>
+    <p>User: {{currentUser.name}}</p>
     <p class="clickable" (click)="logout()">logoff</p>
   </div>
 </div>

@@ -1,27 +1,40 @@
 import { Observable, Observer } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
+import { User } from './../../authorization';
 
 @Injectable()
 export class AuthorizationService {
   private static USER_KEY: string = 'user';
-  public user: Observable<{ id: number, name: string }>;
+  public userInfo: Observable<User>;
+  private userInfoObserver: Observer<User>;
+
+  constructor() {
+    this.userInfo = new Observable((observer) => this.userInfoObserver = observer);
+  }
 
   public login(login: string, password: string): void {
     console.log(`login: ${login} password: ${password}`);
-    this.user = Observable.of({ id: 1, name: login });
-    localStorage.setItem(AuthorizationService.USER_KEY, JSON.stringify({ id: 1, name: login }));
+    let user = new User(1, login);
+    localStorage.setItem(AuthorizationService.USER_KEY, JSON.stringify(user));
+    this.userInfoObserver.next(user);
   }
 
-  public logout(): void {
+  public logout(): Observable<boolean> {
     localStorage.removeItem(AuthorizationService.USER_KEY);
+    this.userInfoObserver.next(null);
+    return Observable.of(true);
   }
 
   public isAuthenticated(): boolean {
-    return localStorage.getItem(AuthorizationService.USER_KEY) ? true : false;
+    if (localStorage.getItem(AuthorizationService.USER_KEY)) {
+      this.userInfoObserver.next(this.getUserInfo());
+      return true;
+    }
+    return false;
   }
 
-  public getUserInfo(): string {
+  public getUserInfo(): User {
     let user = JSON.parse(localStorage.getItem(AuthorizationService.USER_KEY));
-    return user ? user.name : '';
+    return user ? user : null;
   }
 }
