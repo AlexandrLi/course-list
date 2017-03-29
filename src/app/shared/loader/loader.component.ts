@@ -24,9 +24,6 @@ export class LoaderComponent {
   public show: boolean;
 
   constructor(private _loaderService: LoaderService) {
-    this._loaderService.isShown.subscribe((isShown) => {
-      console.log(isShown);
-      this.show = isShown;
-    });
+    this._loaderService.isShown.subscribe((isShown) => this.show = isShown);
   }
 }
