@@ -1,3 +1,4 @@
+import { LoaderService } from './loader.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -16,12 +17,16 @@ import { Component, OnInit } from '@angular/core';
   <div class="sk-circle11 sk-child"></div>
   <div class="sk-circle12 sk-child"></div>
 </div>`,
-  styleUrls: ['./loader.component.css']
+  styleUrls: ['./loader.component.css'],
 })
-export class LoaderComponent implements OnInit {
+
+export class LoaderComponent {
   public show: boolean;
 
-  constructor() { }
-
-  ngOnInit() { }
+  constructor(private _loaderService: LoaderService) {
+    this._loaderService.isShown.subscribe((isShown) => {
+      console.log(isShown);
+      this.show = isShown;
+    });
+  }
 }
