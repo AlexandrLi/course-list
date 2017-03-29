@@ -1,4 +1,3 @@
-import { NgZone } from '@angular/core';
 /*
  * Angular 2 decorators and services
  */
@@ -25,8 +24,4 @@ import {
   `
 })
 export class AppComponent {
-  constructor(private _ngZone: NgZone) {
-    _ngZone.onUnstable.subscribe(() => console.log('Unstable ' + Date.now()));
-    _ngZone.onStable.subscribe(() => console.log('Stable ' + Date.now()));
-  }
 }
