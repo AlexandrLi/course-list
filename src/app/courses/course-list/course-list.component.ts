@@ -48,21 +48,13 @@ export class CourseListComponent implements
             let deleted: boolean;
             this.coursesService.removeItem(id).subscribe((result) => deleted = result);
             if (deleted) {
-                this.coursesService.getList()
-                    .subscribe((courses) => this.courses = courses);
+                this.updateCourses();
             }
         }
     }
 
     public ngOnInit(): void {
-        this.loaderService.show();
-        this.coursesService.getList()
-            .subscribe((courses) => {
-                this.courses = courses;
-                this.ref.markForCheck();
-            },
-            null,
-            () => this.loaderService.hide());
+        this.updateCourses();
     }
 
     public ngAfterContentInit(): void {
@@ -91,5 +83,17 @@ export class CourseListComponent implements
 
     public ngOnChanges(changes: SimpleChanges): void {
         // remove no_empty rule notification
+    }
+
+    private updateCourses(): void {
+        this.loaderService.show();
+        this.courses = [];
+        this.coursesService.getList()
+            .subscribe((courses) => {
+                this.courses = courses;
+                this.ref.markForCheck();
+            },
+            null,
+            () => this.loaderService.hide());
     }
 }
