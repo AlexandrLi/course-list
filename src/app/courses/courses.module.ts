@@ -1,4 +1,3 @@
-import { CoursesService } from './shared/courses.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -6,6 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { CourseListComponent } from './course-list';
 import { CourseItemComponent } from './course-item';
 import { ToolbarComponent } from './toolbar';
+import { LoaderComponent } from './../shared/loader';
+
+import { CoursesService } from './shared/courses.service';
 
 @NgModule({
     imports: [FormsModule, CommonModule],
@@ -16,7 +18,11 @@ import { ToolbarComponent } from './toolbar';
     declarations: [
         CourseListComponent,
         CourseItemComponent,
-        ToolbarComponent],
-    providers: [CoursesService],
+        ToolbarComponent,
+        LoaderComponent
+    ],
+    providers: [
+        CoursesService
+    ],
 })
 export class CoursesModule { }

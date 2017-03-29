@@ -5,6 +5,7 @@ import { HeaderComponent } from './header';
 import { BreadcrumbsComponent } from './header/breadcrumbs';
 import { FooterComponent } from './footer';
 import { AuthorizationService } from './services';
+import { LoaderService } from './../shared/loader/loader.service';
 
 @NgModule({
     imports: [CommonModule],
@@ -16,6 +17,9 @@ import { AuthorizationService } from './services';
         HeaderComponent,
         BreadcrumbsComponent,
         FooterComponent],
-    providers: [AuthorizationService],
+    providers: [
+        AuthorizationService,
+        LoaderService
+    ],
 })
 export class CoreModule { }
