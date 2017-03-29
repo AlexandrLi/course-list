@@ -1,3 +1,4 @@
+import { LoaderService } from './../../shared/loader/loader.service';
 import { Router } from '@angular/router';
 import { CoursesService } from './../shared';
 import {
@@ -11,7 +12,8 @@ import {
     AfterViewInit,
     AfterContentChecked,
     AfterContentInit,
-    ChangeDetectionStrategy
+    ChangeDetectionStrategy,
+    ChangeDetectorRef
 } from '@angular/core';
 import { Course } from '../shared/course.model';
 
@@ -34,7 +36,10 @@ export class CourseListComponent implements
     public courses: Course[];
 
     constructor(
-        private coursesService: CoursesService, private router: Router) {
+        private coursesService: CoursesService,
+        private router: Router,
+        private loaderService: LoaderService,
+        private ref: ChangeDetectorRef) {
         this.courses = [];
     }
 
@@ -50,8 +55,14 @@ export class CourseListComponent implements
     }
 
     public ngOnInit(): void {
+        this.loaderService.show();
         this.coursesService.getList()
-            .subscribe((courses) => this.courses = courses);
+            .subscribe((courses) => {
+                this.courses = courses;
+                this.ref.markForCheck();
+            },
+            null,
+            () => this.loaderService.hide());
     }
 
     public ngAfterContentInit(): void {

@@ -23,7 +23,7 @@ export class CoursesService {
   }
 
   public getList(): Observable<Course[]> {
-    return Observable.of(this.courses);
+    return Observable.of(this.courses).delay(1000);
   }
 
   public createCourse(): Observable<Course> {
