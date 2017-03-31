@@ -87,7 +87,6 @@ export class CourseListComponent implements
 
     private updateCourses(): void {
         this.loaderService.show();
-        this.courses = [];
         this.coursesService.getList()
             .subscribe((courses) => {
                 this.courses = courses;

@@ -14,6 +14,7 @@ import { CoursesService } from './shared/courses.service';
     exports: [
         CourseListComponent,
         CourseItemComponent,
+        LoaderComponent
     ],
     declarations: [
         CourseListComponent,
