@@ -1,6 +1,7 @@
 <toolbar></toolbar>
-<ul class="courses">
-  <li *ngFor="let course of courses">
+<ul *ngIf="courses" class="courses">
+  <li *ngIf="courses.length===0" id="no-data">No data. Feel free to add new course.</li>
+  <li *ngFor="let course of courses" course-highlight [currentCourse]='course'>
     <course-item [course]="course" (delete)="removeCourse($event)"></course-item>
   </li>
 </ul>
