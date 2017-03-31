@@ -1,6 +1,6 @@
 import { LoaderService } from './../../shared/loader/loader.service';
 import { Router } from '@angular/router';
-import { CoursesService } from './../shared';
+import { CoursesService, CourseHighlightDirective } from './../shared';
 import {
     Component,
     OnInit,
@@ -40,7 +40,6 @@ export class CourseListComponent implements
         private router: Router,
         private loaderService: LoaderService,
         private ref: ChangeDetectorRef) {
-        this.courses = [];
     }
 
     public removeCourse(id: number): void {

@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { CourseListComponent } from './course-list';
 import { CourseItemComponent } from './course-item';
 import { ToolbarComponent } from './toolbar';
+import { CourseHighlightDirective } from './shared';
 import { LoaderComponent } from './../shared/loader';
 
 import { CoursesService } from './shared/courses.service';
@@ -20,6 +21,7 @@ import { CoursesService } from './shared/courses.service';
         CourseListComponent,
         CourseItemComponent,
         ToolbarComponent,
+        CourseHighlightDirective,
         LoaderComponent
     ],
     providers: [
