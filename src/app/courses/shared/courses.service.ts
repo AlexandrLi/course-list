@@ -12,7 +12,7 @@ export class CoursesService {
       this.courses.push({
         id: i,
         title: `Mock Course ${i}`,
-        duration: Math.floor(Math.random() * 50) + 1,
+        duration: Math.floor(Math.random() * 100) + 1,
         creationDate: this.randomDate(new Date(2017, 1, 15), new Date(2017, 3, 25)),
         description:
         `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 

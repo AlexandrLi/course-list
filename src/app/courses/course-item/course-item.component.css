@@ -17,9 +17,13 @@
 }
 
 .content p {
-  width: 28%;
+  width: 15%;
   display: inline-block;
-  margin: 2%;
+  margin: 1% 2%;
+}
+
+.content :first-child{
+    width: 30%;
 }
 
 .content .description {
@@ -28,7 +32,12 @@
   text-align: justify;
 }
 
+.content .duration {
+  text-align: right;
+}
+
 .content .date {
+  width: 20%;
   text-align: right;
 }
 

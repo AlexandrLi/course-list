@@ -6,6 +6,8 @@ import { CourseListComponent } from './course-list';
 import { CourseItemComponent } from './course-item';
 import { ToolbarComponent } from './toolbar';
 import { CourseHighlightDirective } from './shared';
+import { DurationPipe } from './shared';
+import { FilterPipe } from './shared';
 import { LoaderComponent } from './../shared/loader';
 
 import { CoursesService } from './shared/courses.service';
@@ -22,10 +24,12 @@ import { CoursesService } from './shared/courses.service';
         CourseItemComponent,
         ToolbarComponent,
         CourseHighlightDirective,
+        DurationPipe,
         LoaderComponent
     ],
     providers: [
-        CoursesService
+        CoursesService,
+        FilterPipe
     ],
 })
 export class CoursesModule { }

@@ -1,6 +1,6 @@
 import { LoaderService } from './../../shared/loader/loader.service';
 import { Router } from '@angular/router';
-import { CoursesService, CourseHighlightDirective } from './../shared';
+import { CoursesService, CourseHighlightDirective, FilterPipe } from './../shared';
 import {
     Component,
     OnInit,
@@ -39,7 +39,8 @@ export class CourseListComponent implements
         private coursesService: CoursesService,
         private router: Router,
         private loaderService: LoaderService,
-        private ref: ChangeDetectorRef) {
+        private ref: ChangeDetectorRef,
+        private filterPipe: FilterPipe) {
     }
 
     public removeCourse(id: number): void {
@@ -50,6 +51,10 @@ export class CourseListComponent implements
                 this.updateCourses();
             }
         }
+    }
+
+    public filter(query: string) {
+        this.courses = this.filterPipe.transform(this.courses, query);
     }
 
     public ngOnInit(): void {

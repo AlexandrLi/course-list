@@ -1,6 +1,7 @@
 <div class="row content">
   <p>{{course.title | uppercase}}</p>
-  <p>{{course.duration}} min <span [ngClass]="course.topRated ? 'star-filled':'star'"></span></p>
+  <p class="duration">{{course.duration | myDuration}}</p>
+  <p [ngClass]="course.topRated ? 'star-filled':'star'"></p>
   <p class="date">{{course.creationDate | date}}</p>
   <p class="description">{{course.description}}</p>
 </div>

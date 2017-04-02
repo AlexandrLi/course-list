@@ -1,7 +1,7 @@
 <div class="toolbar">
-  <form class="search">
-    <input type="text" name="query" [(ngModel)]="query" placeholder="name, fragment or date">
-    <button (click)="find()">Find</button>
+  <form class="search" (ngSubmit)="onSubmit(q.value)">
+    <input type="text" name="q" #q placeholder="name, fragment or date">
+    <button type="submit">Find</button>
   </form>
   <div class="add">
     <button>Add course</button>

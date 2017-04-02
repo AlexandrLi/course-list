@@ -1,4 +1,9 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  Output,
+  EventEmitter
+} from '@angular/core';
 
 @Component({
   selector: 'toolbar',
@@ -8,9 +13,9 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 })
 
 export class ToolbarComponent {
-  public query: string = '';
+  @Output() public query = new EventEmitter<string>();
 
-  public find(): void {
-    console.log(this.query);
+  public onSubmit(query): void {
+    this.query.emit(query);
   }
 }
