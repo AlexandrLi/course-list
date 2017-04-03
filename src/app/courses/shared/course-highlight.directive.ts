@@ -21,7 +21,7 @@ export class CourseHighlightDirective implements AfterContentInit {
       currentDate.getMonth(),
       currentDate.getDate() - 14
     );
-    if (this.currentCourse.creationDate < currentDate &&
+    if (this.currentCourse.creationDate <= currentDate &&
       this.currentCourse.creationDate >= twoWeeksAgoDate) {
       this.el.nativeElement.style['border-color'] = 'green';
     } else if (this.currentCourse.creationDate > currentDate) {
