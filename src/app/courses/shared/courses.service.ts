@@ -8,7 +8,7 @@ export class CoursesService {
   private courses: Course[] = [];
 
   constructor() {
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 10; i++) {
       this.courses.push({
         id: i,
         title: `Mock Course ${i}`,
