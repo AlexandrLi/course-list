@@ -1,7 +1,9 @@
-import { Router } from '@angular/router';
-import { AuthorizationService } from './../services';
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { User } from './../../authorization';
+import { LoaderService } from './../../shared/loader';
+import { AuthorizationService } from './../services';
 
 @Component({
     selector: 'my-header',
@@ -18,7 +20,8 @@ export class HeaderComponent {
     constructor(
         public authService: AuthorizationService,
         private router: Router,
-        private ref: ChangeDetectorRef) {
+        private ref: ChangeDetectorRef,
+        private loaderService: LoaderService) {
         this.authService.userInfo.subscribe(
             (user) => {
                 this.currentUser = user;
@@ -27,7 +30,11 @@ export class HeaderComponent {
     }
 
     public logout() {
+        this.loaderService.show();
         this.authService.logout()
-            .subscribe(() => this.router.navigate(['/login']));
+            .subscribe(() => {
+                this.loaderService.hide();
+                this.router.navigate(['/login']);
+            });
     }
 }

@@ -1,10 +1,10 @@
-import { Observable, BehaviorSubject } from 'rxjs/Rx';
+import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
 import { User } from './../../authorization';
 
 @Injectable()
 export class AuthorizationService {
-  private static USER_KEY: string = 'user';
+  private static USER_KEY: string = 'AMP-user';
   public userInfo: Observable<User>;
   private userInfoSubject: BehaviorSubject<User>;
 
@@ -13,17 +13,26 @@ export class AuthorizationService {
     this.userInfo = this.userInfoSubject.asObservable();
   }
 
-  public login(login: string, password: string): void {
-    console.log(`login: ${login} password: ${password}`);
-    let user = new User(1, login);
-    localStorage.setItem(AuthorizationService.USER_KEY, JSON.stringify(user));
-    this.userInfoSubject.next(user);
+  public login(login: string, password: string): Observable<boolean> {
+    let result = new Subject();
+    setTimeout(() => {
+      console.log(`login: ${login} password: ${password}`);
+      let user = new User(1, login);
+      localStorage.setItem(AuthorizationService.USER_KEY, JSON.stringify(user));
+      this.userInfoSubject.next(user);
+      result.next(true);
+    }, 1200);
+    return result.asObservable();
   }
 
   public logout(): Observable<boolean> {
-    localStorage.removeItem(AuthorizationService.USER_KEY);
-    this.userInfoSubject.next(null);
-    return Observable.of(true);
+    let result = new Subject();
+    setTimeout(() => {
+      localStorage.removeItem(AuthorizationService.USER_KEY);
+      this.userInfoSubject.next(null);
+      result.next(true);
+    }, 1200);
+    return result.asObservable();
   }
 
   public isAuthenticated(): boolean {
