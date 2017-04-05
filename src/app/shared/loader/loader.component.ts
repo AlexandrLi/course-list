@@ -1,5 +1,5 @@
 import { LoaderService } from './loader.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'loader',
@@ -21,12 +21,16 @@ import { Component, OnInit } from '@angular/core';
     </div>
   </div>`,
   styleUrls: ['./loader.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class LoaderComponent {
   public show: boolean;
 
-  constructor(private _loaderService: LoaderService) {
-    this._loaderService.isShown.subscribe((isShown) => this.show = isShown);
+  constructor(private _loaderService: LoaderService, private ref: ChangeDetectorRef) {
+    this._loaderService.isShown.subscribe((isShown) => {
+      this.show = isShown;
+      this.ref.markForCheck();
+    });
   }
 }
