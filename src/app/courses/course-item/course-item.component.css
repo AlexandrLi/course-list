@@ -43,12 +43,6 @@
 
 .star:before{
 font-size: 200%;
-  color: orange;
+  color: black;
   content: '\02606'
-}
-
-.star-filled:before{
-  font-size: 200%;
-  color: orange;
-  content: '\02605'
 }
