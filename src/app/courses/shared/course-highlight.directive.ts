@@ -1,5 +1,6 @@
-import { Course } from './';
 import { Directive, ElementRef, Input, AfterContentInit } from '@angular/core';
+
+import { Course } from './';
 
 @Directive({ selector: '[course-highlight]' })
 export class CourseHighlightDirective implements AfterContentInit {
@@ -21,10 +22,10 @@ export class CourseHighlightDirective implements AfterContentInit {
       currentDate.getMonth(),
       currentDate.getDate() - 14
     );
-    if (this.currentCourse.creationDate <= currentDate &&
-      this.currentCourse.creationDate >= twoWeeksAgoDate) {
+    if (this.currentCourse.date <= currentDate &&
+      this.currentCourse.date >= twoWeeksAgoDate) {
       this.el.nativeElement.style['border-color'] = 'green';
-    } else if (this.currentCourse.creationDate > currentDate) {
+    } else if (this.currentCourse.date > currentDate) {
       this.el.nativeElement.style['border-color'] = 'blue';
     }
   }

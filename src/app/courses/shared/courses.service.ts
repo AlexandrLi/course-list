@@ -13,7 +13,7 @@ export class CoursesService {
         id: i,
         title: `Mock Course ${i}`,
         duration: Math.floor(Math.random() * 100) + 1,
-        creationDate: this.randomDate(new Date(2017, 1, 15), new Date(2017, 3, 25)),
+        date: this.randomDate(new Date(2017, 1, 15), new Date(2017, 3, 25)),
         description:
         `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
                 Mauris enim arcu, ultrices at feugiat a, mattis vitae urna.`,
