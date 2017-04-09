@@ -1,6 +1,3 @@
-import { LoaderService } from './../../shared/loader/loader.service';
-import { Router } from '@angular/router';
-import { CoursesService, CourseHighlightDirective, FilterPipe } from './../shared';
 import {
     Component,
     OnInit,
@@ -15,7 +12,12 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef
 } from '@angular/core';
-import { Course } from '../shared/course.model';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs/Rx';
+
+import { LoaderService } from './../../shared/loader';
+import { CoursesService, CourseHighlightDirective, FilterPipe } from './../shared';
+import { Course } from '../shared';
 
 @Component({
     selector: 'course-list',
@@ -34,6 +36,7 @@ export class CourseListComponent implements
     OnDestroy {
 
     public courses: Course[];
+    private subscriptions: Subscription[] = [];
 
     constructor(
         private coursesService: CoursesService,
@@ -46,7 +49,9 @@ export class CourseListComponent implements
     public removeCourse(id: number): void {
         if (confirm('Do you really want to delete this course?')) {
             let deleted: boolean;
-            this.coursesService.removeItem(id).subscribe((result) => deleted = result);
+            this.subscriptions.push(this.coursesService
+                .removeItem(id)
+                .subscribe((result) => deleted = result));
             if (deleted) {
                 this.updateCourses();
             }
@@ -78,7 +83,7 @@ export class CourseListComponent implements
     }
 
     public ngOnDestroy(): void {
-        // remove no_empty rule notification
+        this.subscriptions.forEach((sub) => sub.unsubscribe());
     }
 
     public ngDoCheck(): void {
@@ -91,12 +96,12 @@ export class CourseListComponent implements
 
     private updateCourses(): void {
         this.loaderService.show();
-        this.coursesService.getList()
+        this.subscriptions.push(this.coursesService.getList()
             .subscribe((courses) => {
                 this.courses = courses;
                 this.ref.markForCheck();
             },
             null,
-            () => this.loaderService.hide());
+            () => this.loaderService.hide()));
     }
 }
