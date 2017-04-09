@@ -1,0 +1,29 @@
+.wrapper{
+  width: 70%;
+  margin: 30px auto;
+}
+
+.input-group{
+  margin: 10px auto;
+}
+
+.button-group{
+  margin: 30px auto;
+  text-align: center;
+}
+
+.label {
+  display: inline-block;
+  text-align: right;
+  vertical-align: top;
+  margin-right: 20px;
+  width: 100px;
+}
+
+button{
+  width: 100px;
+}
+
+#formatted-duration{
+  margin-left: 10px;
+}
