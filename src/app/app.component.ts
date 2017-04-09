@@ -18,10 +18,10 @@ import {
     './app.component.css'
   ],
   template: `
-    <loader></loader>
     <my-header></my-header>
     <router-outlet></router-outlet>
     <my-footer></my-footer>
+    <loader></loader>
   `
 })
 export class AppComponent {
