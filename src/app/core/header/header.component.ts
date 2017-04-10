@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs/Rx';
 import { Router } from '@angular/router';
 
 import { User } from './../../authorization';
@@ -11,30 +12,36 @@ import { AuthorizationService } from './../services';
     styleUrls: ['./header.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnDestroy {
 
     public logoURL: string = '../../../assets/img/angular-logo.png';
     public title: string = 'Mentoring Program';
     public currentUser: User;
+    private subscriptions: Subscription[] = [];
 
     constructor(
         public authService: AuthorizationService,
         private router: Router,
         private ref: ChangeDetectorRef,
         private loaderService: LoaderService) {
-        this.authService.userInfo.subscribe(
-            (user) => {
+        this.subscriptions.push(this.authService.userInfo
+            .subscribe((user) => {
                 this.currentUser = user;
                 this.ref.markForCheck();
-            });
+            }));
     }
 
     public logout() {
         this.loaderService.show();
-        this.authService.logout()
+        this.subscriptions.push(this.authService
+            .logout()
             .subscribe(() => {
                 this.loaderService.hide();
                 this.router.navigate(['/login']);
-            });
+            }));
+    }
+
+    public ngOnDestroy() {
+        this.subscriptions.forEach((sub) => sub.unsubscribe());
     }
 }

@@ -1,0 +1,32 @@
+<div class="wrapper">
+  <form>
+    <div class="input-group">
+      <div class="label">
+        <label for="title">Title</label>
+      </div>
+      <input type="text" id="title">
+    </div>
+    <div class="input-group">
+      <div class="label">
+        <label for="description">Description</label>
+      </div>
+      <textarea name="" id="description" cols="40" rows="2"></textarea>
+    </div>
+    <div class="input-group">
+      <div class="label">
+        <label for="date">Date</label>
+      </div>
+      <input type="text" id="date">
+    </div>
+    <div class="input-group">
+      <div class="label">
+        <label for="duration">Duration</label>
+      </div>
+      <input type="number" id="duration"><span id="formatted-duration">{{ '123' | myDuration}}</span>
+    </div>
+    <div class="button-group">
+      <button>Save</button>
+      <button type="button" (click)="cancel()">Cancel</button>
+    </div>
+  </form>
+</div>

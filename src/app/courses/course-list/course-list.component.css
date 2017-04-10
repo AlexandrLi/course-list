@@ -13,7 +13,7 @@
   font-size: 30px;
 }
 
-.favorite{
+.top-rated{
   position:relative;
   border:2px solid;
   margin:10px 0px;
@@ -29,8 +29,8 @@
   border-radius:4px;
   }
 
-.favorite:before,
-.favorite:after{
+.top-rated:before,
+.top-rated:after{
   z-index:-1;
   position:absolute;
   content:"";
@@ -50,7 +50,7 @@
   transform:rotate(-3deg);
   }
 
-.favorite:after{
+.top-rated:after{
   -webkit-transform:rotate(3deg);
   -moz-transform:rotate(3deg);
   -o-transform:rotate(3deg);
