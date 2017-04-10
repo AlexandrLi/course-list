@@ -34,6 +34,8 @@ export class CourseListComponent implements
     OnDestroy {
 
     public courses: Course[];
+    public filteredCourses: Course[];
+    public query: string = '';
 
     constructor(
         private coursesService: CoursesService,
@@ -54,7 +56,8 @@ export class CourseListComponent implements
     }
 
     public filter(query: string) {
-        this.courses = this.filterPipe.transform(this.courses, query);
+        this.query = query;
+        this.filteredCourses = this.filterPipe.transform(this.courses, query);
     }
 
     public ngOnInit(): void {
@@ -94,6 +97,7 @@ export class CourseListComponent implements
         this.coursesService.getList()
             .subscribe((courses) => {
                 this.courses = courses;
+                this.filter(this.query);
                 this.ref.markForCheck();
             },
             null,

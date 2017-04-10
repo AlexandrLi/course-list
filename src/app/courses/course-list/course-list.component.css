@@ -7,7 +7,7 @@
   margin-bottom: 10px;
 }
 
-#no-data{
+.no-data{
   text-align: center;
   background-color: lightgray;
   font-size: 30px;
