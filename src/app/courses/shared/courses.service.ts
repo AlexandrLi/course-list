@@ -19,12 +19,15 @@ export class CoursesService {
                 Mauris enim arcu, ultrices at feugiat a, mattis vitae urna.`,
         topRated: Math.random() > 0.5
       });
-
     }
   }
 
   public getList(): Observable<Course[]> {
-    return Observable.of(this.courses).delay(1000);
+    let twoWeeksAgo = (new Date()).getTime() - (14 * 24 * 60 * 60 * 1000);
+    return Observable.from(this.courses)
+      .filter((course: Course) => course.date.getTime() >= twoWeeksAgo)
+      .toArray()
+      .delay(500);
   }
 
   public createCourse(): Observable<Course> {
