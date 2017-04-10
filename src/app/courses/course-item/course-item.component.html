@@ -2,7 +2,7 @@
   <p>{{course.title | uppercase}}</p>
   <p class="duration">{{course.duration | myDuration}}</p>
   <p [ngClass]="{star:course.topRated}"></p>
-  <p class="date">{{course.creationDate | date}}</p>
+  <p class="date">{{course.date | date}}</p>
   <p class="description">{{course.description}}</p>
 </div>
 <div class="row controls">
