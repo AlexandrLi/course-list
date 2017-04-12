@@ -42,7 +42,6 @@ export class CourseListComponent implements
 
     private subscriptions: Subscription[] = [];
 
-
     constructor(
         private coursesService: CoursesService,
         private router: Router,
