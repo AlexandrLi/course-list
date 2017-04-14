@@ -52,13 +52,9 @@ export class CourseListComponent implements
 
     public removeCourse(id: number): void {
         if (confirm('Do you really want to delete this course?')) {
-            let deleted: boolean;
             this.subscriptions.push(this.coursesService
                 .removeItem(id)
-                .subscribe((result) => deleted = result));
-            if (deleted) {
-                this.updateCourses();
-            }
+                .subscribe((result) => this.updateCourses()));
         }
     }
 

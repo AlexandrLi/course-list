@@ -1,36 +1,26 @@
 import { Injectable } from '@angular/core';
-import { Course } from './course.model';
+import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
+
+import { Course } from './course.model';
 
 @Injectable()
 export class CoursesService {
   private courses: any[] = [];
 
-  constructor() {
-    for (let i = 0; i < 10; i++) {
-      this.courses.push({
-        id: i,
-        name: `Mock Course ${i}`,
-        duration: Math.floor(Math.random() * 100) + 1,
-        date: this.randomDate(new Date(2017, 1, 15), new Date(2017, 4, 25)),
-        description:
-        `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Mauris enim arcu, ultrices at feugiat a, mattis vitae urna.`,
-        topRated: Math.random() > 0.5
-      });
-    }
+  constructor(private http: Http) {
   }
 
   public getList(): Observable<Course[]> {
     let twoWeeksAgo = (new Date()).getTime() - (14 * 24 * 60 * 60 * 1000);
-    return Observable.of(this.courses)
+    return this.http.get('http://localhost:3001/courses').map((res) => res.json())
       .map((res: any[]) => res.map((item) => {
         return {
           id: item.id,
-          title: item.name,
+          title: item.title,
           duration: item.duration,
-          date: item.date,
+          date: new Date(item.date),
           description: item.description,
           topRated: item.topRated
         };
@@ -51,13 +41,8 @@ export class CoursesService {
     return null;
   }
 
-  public removeItem(id: number): Observable<boolean> {
-    let success = false;
-    this.courses = this.courses.filter((course: Course) => {
-      success = success || course.id === id;
-      return course.id !== id;
-    });
-    return Observable.of(success);
+  public removeItem(id: number): Observable<Response> {
+    return this.http.delete(`http://localhost:3001/courses/${id}`);
   }
 
   private randomDate(start, end) {
