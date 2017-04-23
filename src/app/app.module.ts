@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, XHRBackend, RequestOptions } from '@angular/http';
 import {
   NgModule,
   ApplicationRef
@@ -21,6 +21,7 @@ import { AuthorizationComponent } from './authorization';
 import { NoContentComponent } from './no-content';
 import { CoreModule } from './core';
 import { CoursesModule } from './courses';
+import { AuthorizedHTTPService } from './core/services';
 
 // Application wide providers
 const APP_PROVIDERS = [];
@@ -44,6 +45,13 @@ const APP_PROVIDERS = [];
     RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules })
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
+    {
+      provide: AuthorizedHTTPService,
+      useFactory: (backend: XHRBackend, options: RequestOptions) => {
+        return new AuthorizedHTTPService(backend, options);
+      },
+      deps: [XHRBackend, RequestOptions]
+    },
     ENV_PROVIDERS,
     APP_PROVIDERS
   ]
