@@ -39,7 +39,8 @@ export class CourseListComponent implements
 
     public filteredCourses: Course[];
     public query: string = '';
-
+    public pageNumber: number = 1;
+    public count: number = 10;
     private subscriptions: Subscription[] = [];
 
     constructor(
@@ -60,10 +61,24 @@ export class CourseListComponent implements
 
     public filter(query: string) {
         this.query = query;
-        this.filteredCourses = this.filterPipe.transform(this.courses, query);
+        this.loaderService.show();
+        // this.filteredCourses = this.filterPipe.transform(this.courses, query);
+        this.subscriptions.push(this.coursesService
+            .getListByQuery(query, this.pageNumber, this.count)
+            .subscribe((courses) => {
+                this.courses = courses;
+                this.ref.markForCheck();
+            },
+            null,
+            () => this.loaderService.hide()));
     }
 
     public ngOnInit(): void {
+        this.updateCourses();
+    }
+
+    public addMoreCourses() {
+        this.count = this.count + 10;
         this.updateCourses();
     }
 
@@ -97,7 +112,8 @@ export class CourseListComponent implements
 
     private updateCourses(): void {
         this.loaderService.show();
-        this.subscriptions.push(this.coursesService.getList()
+        console.log(this.count);
+        this.subscriptions.push(this.coursesService.getList(this.pageNumber, this.count)
             .subscribe((courses) => {
                 this.courses = courses;
                 this.filter(this.query);
