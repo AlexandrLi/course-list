@@ -6,9 +6,7 @@ import { CourseListComponent } from './course-list';
 import { CourseItemComponent } from './course-item';
 import { AddCourseComponent } from './add-course';
 import { ToolbarComponent } from './toolbar';
-import { CourseHighlightDirective } from './shared';
-import { DurationPipe } from './shared';
-import { FilterPipe } from './shared';
+import { FilterPipe, OrderByPipe, DurationPipe, CourseHighlightDirective } from './shared';
 import { LoaderComponent } from './../shared/loader';
 
 import { CoursesService } from './shared/courses.service';
@@ -28,6 +26,7 @@ import { CoursesService } from './shared/courses.service';
         ToolbarComponent,
         CourseHighlightDirective,
         DurationPipe,
+        OrderByPipe,
         LoaderComponent
     ],
     providers: [
