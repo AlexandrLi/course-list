@@ -1,46 +1,66 @@
+import {
+  Request,
+  Headers,
+  RequestOptions,
+  URLSearchParams,
+  RequestMethod,
+  Response
+} from '@angular/http';
 import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
+
 import { User } from './../../authorization';
+import { AuthorizedHTTPService } from './';
 
 @Injectable()
 export class AuthorizationService {
-  private static USER_KEY: string = 'AMP-user';
+
+  private static USER_KEY: string = 'AMP-token';
   public userInfo: Observable<User>;
+  private baseUrl: string = 'http://localhost:3004';
   private userInfoSubject: BehaviorSubject<User>;
 
-  constructor() {
-    this.userInfoSubject = new BehaviorSubject(this.getUserInfo());
-    this.userInfo = this.userInfoSubject.asObservable();
+  constructor(private http: AuthorizedHTTPService) {
+    this.userInfoSubject = new BehaviorSubject(new User());
+    this.userInfo = this.getUserInfo();
   }
 
-  public login(login: string, password: string): Observable<boolean> {
-    let result = new Subject();
-    setTimeout(() => {
-      console.log(`login: ${login} password: ${password}`);
-      let user = new User(1, login);
-      localStorage.setItem(AuthorizationService.USER_KEY, JSON.stringify(user));
-      this.userInfoSubject.next(user);
-      result.next(true);
-    }, 1200);
-    return result.asObservable();
+  public login(login: string, password: string): Observable<any> {
+    let requestOptions: RequestOptions = new RequestOptions({ headers: new Headers() });
+    let request: Request;
+
+    requestOptions.url = `${this.baseUrl}/auth/login`;
+    requestOptions.method = RequestMethod.Post;
+    requestOptions.headers.append('Content-Type', 'application/json');
+    requestOptions.body = JSON.stringify({ login, password });
+
+    request = new Request(requestOptions);
+
+    return this.http.request(request)
+      .map((response: Response) => response.json())
+      .do((result) => localStorage.setItem(AuthorizationService.USER_KEY, result.token));
   }
 
   public logout(): Observable<boolean> {
-    let result = new Subject();
-    setTimeout(() => {
-      localStorage.removeItem(AuthorizationService.USER_KEY);
-      this.userInfoSubject.next(null);
-      result.next(true);
-    }, 1200);
-    return result.asObservable();
+    localStorage.removeItem(AuthorizationService.USER_KEY);
+    return Observable.of(true);
   }
 
   public isAuthenticated(): boolean {
     return localStorage.getItem(AuthorizationService.USER_KEY) ? true : false;
   }
 
-  public getUserInfo(): User {
-    let user = JSON.parse(localStorage.getItem(AuthorizationService.USER_KEY));
-    return user ? user : null;
+  public getUserInfo(): Observable<User> {
+    let requestOptions: RequestOptions = new RequestOptions({ headers: new Headers() });
+    let request: Request;
+
+    requestOptions.url = `${this.baseUrl}/auth/userinfo`;
+    requestOptions.method = RequestMethod.Post;
+
+    request = new Request(requestOptions);
+
+    return this.http.request(request)
+      .map((response: Response) => response.json())
+      .map((user) => new User(user.id, user.name.first));
   }
 }
