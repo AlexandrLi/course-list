@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
-  Http,
   Request,
   Response,
-  Headers,
   RequestOptions,
   RequestMethod,
   URLSearchParams

@@ -5,7 +5,7 @@ import { HeaderComponent } from './header';
 import { BreadcrumbsComponent } from './header/breadcrumbs';
 import { FooterComponent } from './footer';
 import { AuthorizationService } from './services';
-import { LoaderService } from './../shared/loader/loader.service';
+import { LoaderService } from './../shared/loader';
 
 @NgModule({
     imports: [CommonModule],

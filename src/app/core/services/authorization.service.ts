@@ -2,11 +2,10 @@ import {
   Request,
   Headers,
   RequestOptions,
-  URLSearchParams,
   RequestMethod,
   Response
 } from '@angular/http';
-import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
+import { Observable, BehaviorSubject } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
 
 import { User } from './../../authorization';

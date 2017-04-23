@@ -12,11 +12,10 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef
 } from '@angular/core';
-import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
 import { LoaderService } from './../../shared/loader';
-import { CoursesService, CourseHighlightDirective, FilterPipe } from './../shared';
+import { CoursesService } from './../shared';
 import { Course } from '../shared';
 
 @Component({
@@ -45,10 +44,8 @@ export class CourseListComponent implements
 
     constructor(
         private coursesService: CoursesService,
-        private router: Router,
         private loaderService: LoaderService,
-        private ref: ChangeDetectorRef,
-        private filterPipe: FilterPipe) {
+        private ref: ChangeDetectorRef) {
     }
 
     public removeCourse(id: number): void {
