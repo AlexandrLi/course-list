@@ -16,7 +16,7 @@ export class HeaderComponent implements OnDestroy {
 
     public logoURL: string = '../../../assets/img/angular-logo.png';
     public title: string = 'Mentoring Program';
-    public currentUser: User;
+    public currentUser: User = new User();
     private subscriptions: Subscription[] = [];
 
     constructor(
@@ -24,7 +24,7 @@ export class HeaderComponent implements OnDestroy {
         private router: Router,
         private ref: ChangeDetectorRef,
         private loaderService: LoaderService) {
-        this.subscriptions.push(this.authService.userInfo
+        this.subscriptions.push(this.authService.getUserInfo()
             .subscribe((user) => {
                 this.currentUser = user;
                 this.ref.markForCheck();
