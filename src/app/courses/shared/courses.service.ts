@@ -46,9 +46,9 @@ export class CoursesService {
       }));
   }
 
-  public getList(pageNumber: number, count: number): Observable<Course[]> {
+  public getList(pageNumber: number, count: number, query: string): Observable<Course[]> {
     let twoWeeksAgo = (new Date()).getTime() - (14 * 24 * 60 * 60 * 1000);
-    return this.http.get(`${this.baseUrl}/courses?_page=${pageNumber}&_limit=${count}`)
+    return this.http.get(`${this.baseUrl}/courses?page=${pageNumber}&limit=${count}&query=${query}`)
       .map((res: Response) => res.json())
       .map((res: any[]) => res.map((item) => {
         return {

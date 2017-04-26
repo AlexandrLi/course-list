@@ -34,12 +34,12 @@ export class CourseListComponent implements
     AfterContentInit,
     OnDestroy {
 
-    public courses: Course[];
+    public courses: Course[] = [];
 
-    public filteredCourses: Course[];
     public query: string = '';
     public pageNumber: number = 1;
     public count: number = 10;
+    public isEndOfList: boolean = false;
     private subscriptions: Subscription[] = [];
 
     constructor(
@@ -50,24 +50,24 @@ export class CourseListComponent implements
 
     public removeCourse(id: number): void {
         if (confirm('Do you really want to delete this course?')) {
-            this.subscriptions.push(this.coursesService
+            this.coursesService
                 .removeItem(id)
-                .subscribe((result) => this.updateCourses()));
+                .subscribe((result) => this.updateCourses());
         }
     }
 
     public filter(query: string) {
+        this.pageNumber = 1;
         this.query = query;
+        this.isEndOfList = false;
         this.loaderService.show();
-        // this.filteredCourses = this.filterPipe.transform(this.courses, query);
-        this.subscriptions.push(this.coursesService
-            .getListByQuery(query, this.pageNumber, this.count)
+        this.coursesService.getList(this.pageNumber, this.count, this.query)
             .subscribe((courses) => {
+                this.isEndOfList = courses.length === 0;
                 this.courses = courses;
                 this.ref.markForCheck();
-            },
-            null,
-            () => this.loaderService.hide()));
+                this.loaderService.hide();
+            });
     }
 
     public ngOnInit(): void {
@@ -75,7 +75,7 @@ export class CourseListComponent implements
     }
 
     public addMoreCourses() {
-        this.count = this.count + 10;
+        this.pageNumber++;
         this.updateCourses();
     }
 
@@ -96,7 +96,7 @@ export class CourseListComponent implements
     }
 
     public ngOnDestroy(): void {
-        this.subscriptions.forEach((sub) => sub.unsubscribe());
+        // remove no_empty rule notification
     }
 
     public ngDoCheck(): void {
@@ -109,14 +109,15 @@ export class CourseListComponent implements
 
     private updateCourses(): void {
         this.loaderService.show();
-        console.log(this.count);
-        this.subscriptions.push(this.coursesService.getList(this.pageNumber, this.count)
+        this.coursesService.getList(this.pageNumber, this.count, this.query)
             .subscribe((courses) => {
-                this.courses = courses;
-                this.filter(this.query);
+                if (courses.length === 0) {
+                    this.isEndOfList = true;
+                } else {
+                    courses.forEach((course) => this.courses.push(course));
+                }
                 this.ref.markForCheck();
-            },
-            null,
-            () => this.loaderService.hide()));
+                this.loaderService.hide();
+            });
     }
 }
