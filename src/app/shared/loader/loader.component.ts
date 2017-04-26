@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
 
-import { LoaderService } from './loader.service';
+import { LoaderService } from './';
 
 @Component({
   selector: 'loader',
