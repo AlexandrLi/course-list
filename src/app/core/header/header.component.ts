@@ -24,11 +24,11 @@ export class HeaderComponent implements OnDestroy {
         private router: Router,
         private ref: ChangeDetectorRef,
         private loaderService: LoaderService) {
-        this.subscriptions.push(this.authService.getUserInfo()
+        this.authService.userInfo
             .subscribe((user) => {
                 this.currentUser = user;
                 this.ref.markForCheck();
-            }));
+            });
     }
 
     public logout() {

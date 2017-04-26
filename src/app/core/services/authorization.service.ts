@@ -21,7 +21,10 @@ export class AuthorizationService {
 
   constructor(private http: AuthorizedHTTPService) {
     this.userInfoSubject = new BehaviorSubject(new User());
-    this.userInfo = this.getUserInfo();
+    if (this.isAuthenticated()) {
+      this.getUserInfo();
+    }
+    this.userInfo = this.userInfoSubject.asObservable();
   }
 
   public login(login: string, password: string): Observable<any> {
@@ -37,7 +40,11 @@ export class AuthorizationService {
 
     return this.http.request(request)
       .map((response: Response) => response.json())
-      .do((result) => localStorage.setItem(AuthorizationService.USER_KEY, result.token));
+      .do((result) => localStorage.setItem(AuthorizationService.USER_KEY, result.token))
+      .do(() => this.getUserInfo())
+      .catch((err) => {
+        throw Observable.of(err);
+      });
   }
 
   public logout(): Observable<boolean> {
@@ -49,7 +56,7 @@ export class AuthorizationService {
     return localStorage.getItem(AuthorizationService.USER_KEY) ? true : false;
   }
 
-  public getUserInfo(): Observable<User> {
+  public getUserInfo() {
     let requestOptions: RequestOptions = new RequestOptions({ headers: new Headers() });
     let request: Request;
 
@@ -57,9 +64,11 @@ export class AuthorizationService {
     requestOptions.method = RequestMethod.Post;
 
     request = new Request(requestOptions);
-
-    return this.http.request(request)
-      .map((response: Response) => response.json())
-      .map((user) => new User(user.id, user.name.first));
+    this.http.request(request)
+      .map((res) => res.json())
+      .subscribe((user) => {
+        console.log(user);
+        this.userInfoSubject.next(new User(user.id, user.name.first));
+      });
   }
 }

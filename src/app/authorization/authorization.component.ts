@@ -41,7 +41,8 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
         .subscribe(() => {
           this.loaderService.hide();
           this.router.navigate(['/courses']);
-        });
+        },
+        (err) => this.loaderService.hide());
 
     }
   }
