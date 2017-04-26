@@ -14,7 +14,7 @@ import { Course } from './course.model';
 
 @Injectable()
 export class CoursesService {
-  private baseUrl: string = 'http://localhost:3004';
+  private baseUrl: string = 'http://amt-server.herokuapp.com';
 
   constructor(private http: AuthorizedHTTPService) {
   }

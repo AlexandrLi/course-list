@@ -16,7 +16,7 @@ export class AuthorizationService {
 
   private static USER_KEY: string = 'AMP-token';
   public userInfo: Observable<User>;
-  private baseUrl: string = 'http://localhost:3004';
+  private baseUrl: string = 'http://amt-server.herokuapp.com';
   private userInfoSubject: BehaviorSubject<User>;
 
   constructor(private http: AuthorizedHTTPService) {
