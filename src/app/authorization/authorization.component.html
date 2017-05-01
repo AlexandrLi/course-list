@@ -1,17 +1,17 @@
-<form (ngSubmit)="signIn()">
+<form #form="ngForm" (submit)="submit(form)">
   <div class="input-group">
     <div class="label">
-      <label for="login">Login</label>
+      <label for="login">Login<span class="required"></span></label>
     </div>
-    <input id="login" type="text" [(ngModel)]="login" name="login" required>
-    <span>* enter</span>
+    <input id="login" type="text" name="login" #login="ngModel" [ngModel]="form.login" required>
+    <p class="error-message" *ngIf="login.touched && login.invalid">this field can not be empty</p>
   </div>
   <div class="input-group">
     <div class="label">
-      <label for="password">Password</label>
+      <label for="password">Password<span class="required"></span></label>
     </div>
-    <input id="password" type="password" [(ngModel)]="password" name="password" required>
-    <span>* enter</span>
+    <input id="password" type="password" name="password" #password="ngModel" [ngModel]="form.password" required>
+    <p class="error-message" *ngIf="password.touched && password.invalid">this field can not be empty</p>
   </div>
-  <button type="submit">Enter</button>
+  <button [disabled]="!form.valid">Enter</button>
 </form>

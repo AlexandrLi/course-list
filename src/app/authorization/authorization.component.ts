@@ -33,17 +33,16 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
     }
   }
 
-  public signIn(): void {
+  public submit(form): void {
+    let login = form.value.login;
+    let password = form.value.password;
     this.loaderService.show();
-    if (this.login && this.password) {
-      this.subscription = this.authService
-        .login(this.login, this.password)
-        .subscribe(() => {
-          this.loaderService.hide();
-          this.router.navigate(['/courses']);
-        },
-        (err) => this.loaderService.hide());
-
-    }
+    this.subscription = this.authService
+      .login(login, password)
+      .subscribe(() => {
+        this.loaderService.hide();
+        this.router.navigate(['/courses']);
+      },
+      (err) => this.loaderService.hide());
   }
 }
