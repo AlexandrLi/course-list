@@ -26,3 +26,23 @@ body {
   border: 1px solid black;
   margin: 10px 0;
 }
+
+input.ng-invalid.ng-touched{
+  border: 1px solid red;
+}
+
+textarea.ng-invalid.ng-touched{
+  border: 1px solid red;
+}
+
+date.ng-invalid.ng-touched > input{
+  border: 1px solid red;
+}
+
+duration.ng-invalid.ng-touched > input{
+  border: 1px solid red;
+}
+
+authors.ng-invalid.ng-touched >fieldset{
+border-color: red;
+}

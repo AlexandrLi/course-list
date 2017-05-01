@@ -24,6 +24,11 @@ button{
   width: 100px;
 }
 
+.error-message{
+  color: red;
+  margin-left: 125px;
+}
+
 #formatted-duration{
   margin-left: 10px;
 }
