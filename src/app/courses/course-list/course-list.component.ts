@@ -61,7 +61,7 @@ export class CourseListComponent implements
         this.query = query;
         this.isEndOfList = false;
         this.loaderService.show();
-        this.coursesService.getList(this.pageNumber, this.count, this.query)
+        this.coursesService.getCourseList(this.pageNumber, this.count, this.query)
             .subscribe((courses) => {
                 this.isEndOfList = courses.length === 0;
                 this.courses = courses;
@@ -109,7 +109,7 @@ export class CourseListComponent implements
 
     private updateCourses(): void {
         this.loaderService.show();
-        this.coursesService.getList(this.pageNumber, this.count, this.query)
+        this.coursesService.getCourseList(this.pageNumber, this.count, this.query)
             .subscribe((courses) => {
                 if (courses.length === 0) {
                     this.isEndOfList = true;
