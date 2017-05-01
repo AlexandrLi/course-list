@@ -1,31 +1,72 @@
 <div class="wrapper">
-  <form>
+  <form [formGroup]="courseForm" (submit)="submit()">
     <div class="input-group">
       <div class="label">
         <label for="title">Title</label>
       </div>
-      <input type="text" id="title">
+      <input type="text" id="title" formControlName="title">
+      <div *ngIf="courseForm.get('title').touched">
+        <div class="error-message" *ngIf="courseForm.get('title').errors?.required">
+          This field is required
+        </div>
+        <div class="error-message" *ngIf="courseForm.get('title').errors?.maxlength">
+          This field should be maximum {{courseForm.get('title').errors.maxlength.requiredLength}} characters (current: {{courseForm.get('title').errors.maxlength.actualLength}})
+        </div>
+      </div>
     </div>
     <div class="input-group">
       <div class="label">
         <label for="description">Description</label>
       </div>
-      <textarea name="" id="description" cols="40" rows="2"></textarea>
+      <textarea name="" id="description" cols="40" rows="10" formControlName="description"></textarea>
+      <div *ngIf="courseForm.get('description').touched">
+        <div class="error-message" *ngIf="courseForm.get('description').errors?.required">
+          This field is required
+        </div>
+        <div class="error-message" *ngIf="courseForm.get('description').errors?.maxlength">
+          This field should be maximum {{courseForm.get('description').errors.maxlength.requiredLength}} characters (current: {{courseForm.get('description').errors.maxlength.actualLength}})
+        </div>
+      </div>
     </div>
     <div class="input-group">
       <div class="label">
         <label for="date">Date</label>
       </div>
-      <input type="text" id="date">
+      <date formControlName="date"></date>
+      <div *ngIf="courseForm.get('date').touched">
+        <div class="error-message" *ngIf="courseForm.get('date').errors?.required">
+          This field is required
+        </div>
+        <div class="error-message" *ngIf="courseForm.get('date').errors?.invalidDateFormat">
+          Date should match pattern dd.mm.yyyy
+        </div>
+      </div>
     </div>
     <div class="input-group">
       <div class="label">
         <label for="duration">Duration</label>
       </div>
-      <input type="number" id="duration"><span id="formatted-duration">{{ '123' | myDuration}}</span>
+      <duration formControlName="duration"></duration><span id="formatted-duration" *ngIf="!courseForm.get('duration').errors?.invalidDurationFormat">{{ courseForm.get('duration').value | myDuration}}</span>
+      <div *ngIf="courseForm.get('duration').touched">
+        <div class="error-message" *ngIf="courseForm.get('duration').errors?.required">
+          This field is required
+        </div>
+        <div class="error-message" *ngIf="courseForm.get('duration').errors?.invalidDurationFormat">
+          Date should contains numbers only
+        </div>
+      </div>
+    </div>
+    <div class="input-group">
+      <div class="label">
+        <label for="authors">Authors</label>
+      </div>
+      <authors [items]="authors | async" formControlName="authors"></authors>
+      <div class="error-message" *ngIf="courseForm.get('authors').touched && courseForm.get('authors').errors?.nothingChecked">
+        At least one author should be checked
+      </div>
     </div>
     <div class="button-group">
-      <button>Save</button>
+      <button [disabled]="!courseForm.valid">Save</button>
       <button type="button" (click)="cancel()">Cancel</button>
     </div>
   </form>
