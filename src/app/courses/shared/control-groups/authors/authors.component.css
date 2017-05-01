@@ -1,0 +1,8 @@
+fieldset{
+  border:1px solid black; 
+  display: inline-block;
+}
+
+input{
+  margin-right: 160px;
+}
