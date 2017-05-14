@@ -4,7 +4,8 @@ import {
   Response,
   RequestOptions,
   RequestMethod,
-  URLSearchParams
+  URLSearchParams,
+  Headers
 } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
@@ -41,20 +42,67 @@ export class CoursesService {
       .map((res: Response) => res.json());
   }
 
-  public createCourse(): Observable<Course> {
-    return null;
+  public createCourse(course: Course): Observable<Course> {
+    let requestOptions: RequestOptions = new RequestOptions({ headers: new Headers() });
+    let request: Request;
+
+    requestOptions.url = `${this.baseUrl}/courses`;
+    requestOptions.method = RequestMethod.Post;
+    requestOptions.headers.append('Content-Type', 'application/json');
+    requestOptions.body = JSON.stringify(this.mapCourseForPost(course));
+
+    request = new Request(requestOptions);
+
+    return this.http.request(request)
+      .map((response: Response) => response.json());
   }
 
   public getItemById(id: number): Observable<Course> {
-    return null;
+    return this.http.get(`${this.baseUrl}/courses/${id}`)
+      .map((res: Response) => res.json())
+      .map((res) => this.mapCourseFromResponse(res));
   }
 
   public updateItem(course: Course): Observable<Course> {
-    return null;
+    let requestOptions: RequestOptions = new RequestOptions({ headers: new Headers() });
+    let request: Request;
+
+    requestOptions.url = `${this.baseUrl}/courses/${course.id}`;
+    requestOptions.method = RequestMethod.Put;
+    requestOptions.headers.append('Content-Type', 'application/json');
+    requestOptions.body = JSON.stringify(this.mapCourseForPost(course));
+
+    request = new Request(requestOptions);
+
+    return this.http.request(request)
+      .map((response: Response) => response.json());
   }
 
   public removeItem(id: number): Observable<Response> {
     return this.http.delete(`${this.baseUrl}/courses/${id}`);
   }
 
+  private mapCourseFromResponse(response): Course {
+    return {
+      id: response.id,
+      title: response.name,
+      duration: response.length,
+      date: new Date(response.date),
+      description: response.description,
+      authors: response.authors,
+      topRated: response.isTopRated
+    };
+  }
+
+  private mapCourseForPost(course: Course) {
+    return {
+      id: course.id,
+      name: course.title,
+      description: course.description,
+      isTopRated: course.topRated,
+      date: course.date,
+      authors: course.authors,
+      length: course.duration
+    };
+  }
 }

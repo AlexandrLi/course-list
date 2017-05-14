@@ -17,6 +17,7 @@ import { Subscription } from 'rxjs/Rx';
 import { LoaderService } from './../../shared/loader';
 import { CoursesService } from './../shared';
 import { Course } from '../shared';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'course-list',
@@ -45,6 +46,7 @@ export class CourseListComponent implements
     constructor(
         private coursesService: CoursesService,
         private loaderService: LoaderService,
+        private aRoute: ActivatedRoute,
         private ref: ChangeDetectorRef) {
     }
 

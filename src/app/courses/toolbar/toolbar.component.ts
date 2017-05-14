@@ -23,6 +23,6 @@ export class ToolbarComponent {
   }
 
   public addCourse() {
-    this._router.navigate(['courses/add']);
+    this._router.navigate(['courses/new']);
   }
 }

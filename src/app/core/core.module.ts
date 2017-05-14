@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
@@ -8,7 +9,9 @@ import { AuthorizationService } from './services';
 import { LoaderService } from './../shared/loader';
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [
+        CommonModule,
+        RouterModule],
     exports: [
         HeaderComponent,
         BreadcrumbsComponent,

@@ -4,7 +4,7 @@
       <div class="label">
         <label for="title">Title</label>
       </div>
-      <input type="text" id="title" formControlName="title">
+      <input type="text" id="title" [(ngModel)]="currentCourse.title" formControlName="title">
       <div *ngIf="courseForm.get('title').touched">
         <div class="error-message" *ngIf="courseForm.get('title').errors?.required">
           This field is required
@@ -18,7 +18,7 @@
       <div class="label">
         <label for="description">Description</label>
       </div>
-      <textarea name="" id="description" cols="40" rows="10" formControlName="description"></textarea>
+      <textarea name="" id="description" [(ngModel)]="currentCourse.description" cols="40" rows="10" formControlName="description"></textarea>
       <div *ngIf="courseForm.get('description').touched">
         <div class="error-message" *ngIf="courseForm.get('description').errors?.required">
           This field is required
@@ -46,7 +46,7 @@
       <div class="label">
         <label for="duration">Duration</label>
       </div>
-      <duration formControlName="duration"></duration><span id="formatted-duration" *ngIf="!courseForm.get('duration').errors?.invalidDurationFormat">{{ courseForm.get('duration').value | myDuration}}</span>
+      <duration [(ngModel)]="currentCourse.duration" formControlName="duration"></duration><span id="formatted-duration" *ngIf="!courseForm.get('duration').errors?.invalidDurationFormat">{{ courseForm.get('duration').value | myDuration}}</span>
       <div *ngIf="courseForm.get('duration').touched">
         <div class="error-message" *ngIf="courseForm.get('duration').errors?.required">
           This field is required

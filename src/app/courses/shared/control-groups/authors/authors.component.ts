@@ -23,7 +23,6 @@ export class AuthorsComponent implements ControlValueAccessor {
   // tslint:disable-next-line:no-empty
   public onTouched: any = () => { };
 
-
   public setValue(value) {
     this.value = value.target.value;
   }

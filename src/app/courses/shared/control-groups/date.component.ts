@@ -20,12 +20,6 @@ export class DateComponent implements ControlValueAccessor {
   // tslint:disable-next-line:no-input-rename
   @Input('value') public _value: string = '';
 
-  constructor() {
-    // let now = new Date();
-    // let day = now.getDate() < 9 ? '0' + now.getDate() : now.getDate();
-    // this.value = `${day}.${now.getMonth() + 1}.${now.getFullYear()}`;
-  }
-
   // tslint:disable-next-line:no-empty
   public onChange: any = () => { };
   // tslint:disable-next-line:no-empty

@@ -18,12 +18,13 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthorizationService,
     private router: Router,
+
     private loaderService: LoaderService) {
   }
 
   public ngOnInit() {
     if (this.authService.isAuthenticated()) {
-      this.router.navigate(['/courses']);
+      this.router.navigate(['courses']);
     }
   }
 
@@ -41,7 +42,7 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
       .login(login, password)
       .subscribe(() => {
         this.loaderService.hide();
-        this.router.navigate(['/courses']);
+        this.router.navigate(['courses']);
       },
       (err) => this.loaderService.hide());
   }

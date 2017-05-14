@@ -13,7 +13,7 @@ import {
  * Platform and Environment providers/directives/pipes
  */
 import { ENV_PROVIDERS } from './environment';
-import { ROUTES } from './app.routes';
+import { AppRoutingModule } from './app.routes';
 // App is our top level component
 import { AppComponent } from './app.component';
 import { AuthorizationComponent } from './authorization';
@@ -39,9 +39,9 @@ const APP_PROVIDERS = [];
     BrowserModule,
     FormsModule,
     HttpModule,
+    AppRoutingModule,
     CoreModule,
-    CoursesModule,
-    RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules })
+    CoursesModule
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     {

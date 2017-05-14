@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { User } from './../../authorization';
 import { LoaderService } from './../../shared/loader';
@@ -22,6 +22,7 @@ export class HeaderComponent implements OnDestroy {
     constructor(
         public authService: AuthorizationService,
         private router: Router,
+        private aRoute: ActivatedRoute,
         private ref: ChangeDetectorRef,
         private loaderService: LoaderService) {
         this.authService.userInfo
