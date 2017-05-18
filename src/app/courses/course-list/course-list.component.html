@@ -2,7 +2,7 @@
 <ul *ngIf="courses" class="courses">
   <li *ngIf="courses.length===0 && query.length===0" class="no-data">No data. Feel free to add new course.</li>
   <li *ngIf="courses.length===0" class="no-data">No courses that matches query.</li>
-  <li *ngFor="let course of courses | myOrderBy:'desc'" course-highlight [currentCourse]='course' [ngClass]="{'top-rated':course.topRated}">
+  <li *ngFor="let course of courses" course-highlight [currentCourse]='course' [ngClass]="{'top-rated':course.topRated}">
     <course-item [course]="course" (remove)="removeCourse($event)"></course-item>
   </li>
 </ul>

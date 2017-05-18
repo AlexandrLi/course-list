@@ -21,7 +21,6 @@ export class CoursesService {
   }
 
   public getCourseList(pageNumber: number, count: number, query: string): Observable<Course[]> {
-    let twoWeeksAgo = (new Date()).getTime() - (14 * 24 * 60 * 60 * 1000);
     return this.http.get(`${this.baseUrl}/courses?page=${pageNumber}&limit=${count}&query=${query}`)
       .map((res: Response) => res.json())
       .map((res: any[]) => res.map((item) => {
@@ -33,8 +32,7 @@ export class CoursesService {
           description: item.description,
           topRated: item.isTopRated
         };
-      }))
-      .map((courses: Course[]) => courses.filter((course) => course.date.getTime() >= twoWeeksAgo));
+      }));
   }
 
   public getAuthorsList(): Observable<any[]> {

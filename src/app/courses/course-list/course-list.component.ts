@@ -39,7 +39,7 @@ export class CourseListComponent implements
 
     public query: string = '';
     public pageNumber: number = 1;
-    public count: number = 10;
+    public count: number = 5;
     public isEndOfList: boolean = false;
     private subscriptions: Subscription[] = [];
 
