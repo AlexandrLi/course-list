@@ -17,7 +17,7 @@ const CUSTOM_AUTHORS_VALUE_ACCESSOR = {
 
 export class AuthorsComponent implements ControlValueAccessor {
   @Input() public items: any[];
-  public checkedAuthors: any[] = [];
+  @Input() public checkedAuthors: any[];
   // tslint:disable-next-line:no-empty
   public onChange: any = () => { };
   // tslint:disable-next-line:no-empty
@@ -54,5 +54,9 @@ export class AuthorsComponent implements ControlValueAccessor {
     if (value) {
       this.value = value;
     }
+  }
+
+  public isChecked(id): boolean {
+    return this.checkedAuthors.some((author) => author.id === id);
   }
 }

@@ -60,7 +60,7 @@
       <div class="label">
         <label for="authors">Authors</label>
       </div>
-      <authors [items]="authors | async" formControlName="authors"></authors>
+      <authors [items]="authors | async" [checkedAuthors]="currentCourse.authors" formControlName="authors"></authors>
       <div class="error-message" *ngIf="courseForm.get('authors').touched && courseForm.get('authors').errors?.nothingChecked">
         At least one author should be checked
       </div>
