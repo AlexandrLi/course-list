@@ -11,7 +11,7 @@ const CUSTOM_DATE_VALUE_ACCESSOR = {
 @Component({
   selector: 'duration',
   // tslint:disable-next-line:max-line-length
-  template: '<input id="duration" [value]="value" (change)="setValue($event)" (blur)="onTouched()">',
+  template: '<input id="duration" [value]="value" (keyup)="setValue($event)" (blur)="onTouched()">',
   providers: [CUSTOM_DATE_VALUE_ACCESSOR]
 })
 
