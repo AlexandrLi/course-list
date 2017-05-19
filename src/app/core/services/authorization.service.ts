@@ -16,7 +16,7 @@ export class AuthorizationService {
 
   private static USER_KEY: string = 'AMP-token';
   public userInfo: Observable<User>;
-  private baseUrl: string = 'http://amt-server.herokuapp.com';
+
   private userInfoSubject: BehaviorSubject<User>;
 
   constructor(private http: AuthorizedHTTPService) {
@@ -31,7 +31,7 @@ export class AuthorizationService {
     let requestOptions: RequestOptions = new RequestOptions({ headers: new Headers() });
     let request: Request;
 
-    requestOptions.url = `${this.baseUrl}/auth/login`;
+    requestOptions.url = `/auth/login`;
     requestOptions.method = RequestMethod.Post;
     requestOptions.headers.append('Content-Type', 'application/json');
     requestOptions.body = JSON.stringify({ login, password });
@@ -60,7 +60,7 @@ export class AuthorizationService {
     let requestOptions: RequestOptions = new RequestOptions({ headers: new Headers() });
     let request: Request;
 
-    requestOptions.url = `${this.baseUrl}/auth/userinfo`;
+    requestOptions.url = `/auth/userinfo`;
     requestOptions.method = RequestMethod.Post;
 
     request = new Request(requestOptions);

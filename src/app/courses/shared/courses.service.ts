@@ -15,13 +15,12 @@ import { Course } from './course.model';
 
 @Injectable()
 export class CoursesService {
-  private baseUrl: string = 'http://amt-server.herokuapp.com';
 
   constructor(private http: AuthorizedHTTPService) {
   }
 
   public getCourseList(pageNumber: number, count: number, query: string): Observable<Course[]> {
-    return this.http.get(`${this.baseUrl}/courses?page=${pageNumber}&limit=${count}&query=${query}`)
+    return this.http.get(`/courses?page=${pageNumber}&limit=${count}&query=${query}`)
       .map((res: Response) => res.json())
       .map((res: any[]) => res.map((item) => {
         return {
@@ -36,7 +35,7 @@ export class CoursesService {
   }
 
   public getAuthorsList(): Observable<any[]> {
-    return this.http.get(`${this.baseUrl}/authors`)
+    return this.http.get(`/authors`)
       .map((res: Response) => res.json());
   }
 
@@ -44,7 +43,7 @@ export class CoursesService {
     let requestOptions: RequestOptions = new RequestOptions({ headers: new Headers() });
     let request: Request;
 
-    requestOptions.url = `${this.baseUrl}/courses`;
+    requestOptions.url = `/courses`;
     requestOptions.method = RequestMethod.Post;
     requestOptions.headers.append('Content-Type', 'application/json');
     requestOptions.body = JSON.stringify(this.mapCourseForPost(course));
@@ -56,7 +55,7 @@ export class CoursesService {
   }
 
   public getItemById(id: number): Observable<Course> {
-    return this.http.get(`${this.baseUrl}/courses/${id}`)
+    return this.http.get(`/courses/${id}`)
       .map((res: Response) => res.json())
       .map((res) => this.mapCourseFromResponse(res));
   }
@@ -65,7 +64,7 @@ export class CoursesService {
     let requestOptions: RequestOptions = new RequestOptions({ headers: new Headers() });
     let request: Request;
 
-    requestOptions.url = `${this.baseUrl}/courses/${course.id}`;
+    requestOptions.url = `/courses/${course.id}`;
     requestOptions.method = RequestMethod.Put;
     requestOptions.headers.append('Content-Type', 'application/json');
     requestOptions.body = JSON.stringify(this.mapCourseForPost(course));
@@ -77,7 +76,7 @@ export class CoursesService {
   }
 
   public removeItem(id: number): Observable<Response> {
-    return this.http.delete(`${this.baseUrl}/courses/${id}`);
+    return this.http.delete(`/courses/${id}`);
   }
 
   private mapCourseFromResponse(response): Course {
