@@ -7,6 +7,7 @@ import { BreadcrumbsComponent } from './header/breadcrumbs';
 import { FooterComponent } from './footer';
 import { AuthorizationService } from './services';
 import { LoaderService } from './../shared/loader';
+import { CanActivateViaAuthGuard } from './services/auth.guard';
 
 @NgModule({
     imports: [
@@ -22,7 +23,8 @@ import { LoaderService } from './../shared/loader';
         FooterComponent],
     providers: [
         AuthorizationService,
-        LoaderService
+        LoaderService,
+        CanActivateViaAuthGuard
     ],
 })
 export class CoreModule { }
