@@ -1,3 +1,4 @@
+import * as moment from 'moment';
 import { Observable } from 'rxjs/Rx';
 import { CoursesService, Course } from './../shared';
 import { DateValidators, DurationValidators, AuthorsValidators } from './../shared/validators';
@@ -46,7 +47,11 @@ export class AddCourseComponent implements OnInit {
     if (id) {
       this.coursesService.getItemById(id)
         .subscribe(
-        (result: Course) => this.currentCourse = result,
+        (result: Course) => {
+          this.currentCourse = result;
+          this.courseForm.get('date').setValue(this.formatDate(this.currentCourse.date));
+          this.courseForm.get('authors').setValue(this.currentCourse.authors);
+        },
         (err) => {
           if (err.status === 404) {
             this._router.navigate(['**']);
@@ -55,7 +60,7 @@ export class AddCourseComponent implements OnInit {
     }
   }
   public submit(): void {
-    let date = this.courseForm.get('date').value.split('.');
+    let date = this.courseForm.get('date').value.split('/');
     console.log(date);
     this.currentCourse.date = new Date(date[2], date[1] - 1, date[0]);
     console.log(this.currentCourse);
@@ -66,6 +71,10 @@ export class AddCourseComponent implements OnInit {
       this.coursesService.createCourse(this.currentCourse)
         .subscribe(() => this._router.navigate(['courses']));
     }
+  }
+
+  public formatDate(date) {
+    return moment(date).isValid() ? moment(date).format('DD/MM/YYYY') : null;
   }
 
   public cancel(): void {

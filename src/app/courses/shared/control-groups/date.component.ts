@@ -11,12 +11,11 @@ const CUSTOM_DATE_VALUE_ACCESSOR = {
 @Component({
   selector: 'date',
   // tslint:disable-next-line:max-line-length
-  template: '<input type="text" id="date" [value]="value" (change)="setValue($event)" (blur)="onTouched()">',
+  template: `<input type="text" id="date" [value]="value" (input)="setValue($event)" (blur)="onTouched()">`,
   providers: [CUSTOM_DATE_VALUE_ACCESSOR]
 })
 
 export class DateComponent implements ControlValueAccessor {
-
   // tslint:disable-next-line:no-input-rename
   @Input('value') public _value: string = '';
 
@@ -26,6 +25,7 @@ export class DateComponent implements ControlValueAccessor {
   public onTouched: any = () => { };
 
   public setValue(value) {
+    console.log(value.target);
     this.value = value.target.value;
   }
 
@@ -52,5 +52,4 @@ export class DateComponent implements ControlValueAccessor {
       this.value = value;
     }
   }
-
 }

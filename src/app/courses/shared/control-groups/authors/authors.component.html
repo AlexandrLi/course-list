@@ -1,4 +1,4 @@
-<fieldset id="authors" (blur)="onTouched">
+<fieldset id="authors" (blur)="onTouched()">
   <div *ngFor="let author of items">
     <label><input type="checkbox" value="{{author.id}}" (change)="setValue($event)" [checked]='isChecked(author.id)'>{{author.firstName}} {{author.lastName}}</label>
   </div>

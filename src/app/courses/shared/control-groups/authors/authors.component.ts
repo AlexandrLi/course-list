@@ -24,21 +24,22 @@ export class AuthorsComponent implements ControlValueAccessor {
   public onTouched: any = () => { };
 
   public setValue(value) {
-    this.value = value.target.value;
-  }
-
-  get value() {
-    return this.value;
-  }
-
-  set value(val) {
-    let currentIndex = this.checkedAuthors.findIndex((item) => item.id == val);
+    let id: number = value.target.value;
+    let currentIndex = this.checkedAuthors.findIndex((item) => item.id === id);
     if (currentIndex !== -1) {
       this.checkedAuthors.splice(currentIndex, 1);
     } else {
-      this.checkedAuthors.push(this.items.find((item) => item.id == val));
+      this.checkedAuthors.push(this.items.find((item) => item.id === id));
     }
-    this.onChange(this.checkedAuthors);
+    this.value = this.checkedAuthors;
+  }
+
+  get value() {
+    return this.checkedAuthors;
+  }
+
+  set value(val) {
+    this.onChange(val);
     this.onTouched();
   }
 
@@ -55,7 +56,6 @@ export class AuthorsComponent implements ControlValueAccessor {
       this.value = value;
     }
   }
-
   public isChecked(id): boolean {
     return this.checkedAuthors.some((author) => author.id === id);
   }
