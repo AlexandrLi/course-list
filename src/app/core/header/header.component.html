@@ -4,7 +4,7 @@
     <h2>{{title}}</h2>
   </div>
   <div *ngIf="authService.isAuthenticated()" class="breadcrumbs">
-    <a routerLink="">Courses</a>
+    <a routerLink="">Courses</a><span>{{breadcrumbs | async}}</span>
   </div>
   <div *ngIf="authService.isAuthenticated()" class="cabinet">
     <p>User: {{currentUser.name}}</p>

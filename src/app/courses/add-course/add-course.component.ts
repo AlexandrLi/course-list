@@ -1,8 +1,10 @@
 import * as moment from 'moment';
+
 import { Observable } from 'rxjs/Rx';
 import { CoursesService, Course } from './../shared';
+import { BreadcrumbsService } from './../../core/services';
 import { DateValidators, DurationValidators, AuthorsValidators } from './../shared/validators';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -12,11 +14,12 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./add-course.component.css']
 })
 
-export class AddCourseComponent implements OnInit {
+export class AddCourseComponent implements OnInit, OnDestroy {
   public currentCourse: Course;
   public courseForm: FormGroup;
   public authors: Observable<any[]>;
   constructor(
+    private breadcrumbsService: BreadcrumbsService,
     private _router: Router,
     private aRoute: ActivatedRoute,
     private fb: FormBuilder,
@@ -51,6 +54,7 @@ export class AddCourseComponent implements OnInit {
           this.currentCourse = result;
           this.courseForm.get('date').setValue(this.formatDate(this.currentCourse.date));
           this.courseForm.get('authors').setValue(this.currentCourse.authors);
+          this.breadcrumbsService.setPath(this.currentCourse.title);
         },
         (err) => {
           if (err.status === 404) {
@@ -79,5 +83,9 @@ export class AddCourseComponent implements OnInit {
 
   public cancel(): void {
     this._router.navigate(['courses']);
+  }
+
+  public ngOnDestroy() {
+    this.breadcrumbsService.clearPath();
   }
 }
