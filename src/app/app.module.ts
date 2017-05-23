@@ -1,14 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, XHRBackend, RequestOptions } from '@angular/http';
-import {
-  NgModule
-} from '@angular/core';
-import {
-  RouterModule,
-  PreloadAllModules
-} from '@angular/router';
-
+import { NgModule } from '@angular/core';
+import { RouterModule, PreloadAllModules } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -39,6 +35,10 @@ const APP_PROVIDERS = [];
     BrowserModule,
     FormsModule,
     HttpModule,
+    StoreModule.provideStore({}, 5),
+    StoreDevtoolsModule.instrumentOnlyWithExtension({
+      maxAge: 5
+    }),
     AppRoutingModule,
     CoreModule,
     CoursesModule
