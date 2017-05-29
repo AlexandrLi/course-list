@@ -17,6 +17,7 @@ import { NoContentComponent } from './no-content';
 import { CoreModule } from './core';
 import { CoursesModule } from './courses';
 import { AuthorizedHTTPService } from './core/services';
+import { userReducer } from './redux/reducers';
 
 // Application wide providers
 const APP_PROVIDERS = [];
@@ -35,7 +36,7 @@ const APP_PROVIDERS = [];
     BrowserModule,
     FormsModule,
     HttpModule,
-    StoreModule.provideStore({}, 5),
+    StoreModule.provideStore({ user: userReducer }),
     StoreDevtoolsModule.instrumentOnlyWithExtension({
       maxAge: 5
     }),
