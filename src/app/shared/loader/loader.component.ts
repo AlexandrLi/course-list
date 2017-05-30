@@ -18,7 +18,7 @@ export class LoaderComponent {
   public show: Observable<boolean>;
 
   constructor(private store: Store<AppStore>, private ref: ChangeDetectorRef) {
-    this.show = this.store.select('loader');
+    this.show = this.store.select('loading');
   }
 
 }

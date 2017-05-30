@@ -1,9 +1,10 @@
+import { Store } from '@ngrx/store';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs/Rx';
 import { Router } from '@angular/router';
 
+import { AppStore } from './../core/store/app-store';
 import { AuthorizationService } from './../core/services';
-import { LoaderService } from './../shared/loader';
+import { ShowLoaderAction, HideLoaderAction } from '../shared/loader';
 
 @Component({
   selector: 'login',
@@ -15,9 +16,8 @@ export class AuthorizationComponent implements OnInit {
   constructor(
     private authService: AuthorizationService,
     private router: Router,
-
-    private loaderService: LoaderService) {
-  }
+    private store: Store<AppStore>
+  ) { }
 
   public ngOnInit() {
     if (this.authService.isAuthenticated()) {
@@ -26,14 +26,13 @@ export class AuthorizationComponent implements OnInit {
   }
 
   public submit(form): void {
+    this.store.dispatch(new ShowLoaderAction());
     let login = form.value.login;
     let password = form.value.password;
-    this.loaderService.show();
-    this.authService.login(login, password)
-      .subscribe(() => {
-        this.loaderService.hide();
-        this.router.navigate(['courses']);
-      },
-      (err) => this.loaderService.hide());
+    this.authService.login(login, password).subscribe(() => {
+      this.store.dispatch(new HideLoaderAction());
+      this.router.navigate(['courses']);
+    },
+      (err) => this.store.dispatch(new HideLoaderAction()));
   }
 }

@@ -21,7 +21,7 @@ import { userReducer, userTokenReducer } from '../authorization/user.reducer';
         CommonModule,
         RouterModule,
         StoreModule.provideStore({
-            loader: loaderReducer,
+            loading: loaderReducer,
             user: userReducer,
             userToken: userTokenReducer,
         }, INITIAL_STATE),
