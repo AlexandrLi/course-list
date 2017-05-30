@@ -23,13 +23,10 @@ export class AuthorizationService {
 
   constructor(private http: AuthorizedHTTPService, private store: Store<AppStore>) {
     this.store.select('user').subscribe((user: User) => this.userInfoSubject.next(user));
-    // if (this.isAuthenticated()) {
-    //   this.getUserInfo();
-    // }
     this.userInfo = this.userInfoSubject.asObservable();
   }
 
-  public login(login: string, password: string): Observable<any> {
+  public login(login: string, password: string) {
     let requestOptions: RequestOptions = new RequestOptions({ headers: new Headers() });
     let request: Request;
 
@@ -42,21 +39,21 @@ export class AuthorizationService {
 
     return this.http.request(request)
       .map((response: Response) => response.json())
-      .do((result) => localStorage.setItem(AuthorizationService.USER_KEY, result.token))
-      .do(() => this.getUserInfo())
-      .catch((err) => {
-        throw Observable.of(err);
-      });
+      .do((result) => {
+        localStorage.setItem(AuthorizationService.USER_KEY, result.token);
+        this.store.dispatch(new AddTokenAction(result.token));
+      })
+      .flatMap(() => this.getUserInfo());
   }
 
   public logout(): Observable<boolean> {
     localStorage.removeItem(AuthorizationService.USER_KEY);
     this.store.dispatch(new AddTokenAction(null));
+    this.store.dispatch(new AddUserAction(null));
     return Observable.of(true);
   }
 
   public isAuthenticated(): boolean {
-    // return localStorage.getItem(AuthorizationService.USER_KEY) ? true : false;
     return !!this.userInfoSubject.getValue();
   }
 
@@ -68,12 +65,8 @@ export class AuthorizationService {
     requestOptions.method = RequestMethod.Post;
 
     request = new Request(requestOptions);
-    this.http.request(request)
+    return this.http.request(request)
       .map((res) => res.json())
-      .subscribe((user) => {
-        console.log(user);
-        this.store.dispatch(new AddUserAction(new User(user.id, user.name.first)));
-        // this.userInfoSubject.next(new User(user.id, user.name.first));
-      });
+      .do((user) => this.store.dispatch(new AddUserAction(new User(user.id, user.name.first))));
   }
 }

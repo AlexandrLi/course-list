@@ -46,7 +46,6 @@ export class AuthorizedHTTPService extends Http {
       console.log(res);
       if (res.status === 401 || res.status === 403) {
         // if not authenticated
-        console.log(res);
       }
       return Observable.throw(res);
     };
