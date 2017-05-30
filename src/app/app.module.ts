@@ -36,10 +36,6 @@ const APP_PROVIDERS = [];
     BrowserModule,
     FormsModule,
     HttpModule,
-    StoreModule.provideStore({ user: userReducer }),
-    StoreDevtoolsModule.instrumentOnlyWithExtension({
-      maxAge: 5
-    }),
     AppRoutingModule,
     CoreModule,
     CoursesModule
