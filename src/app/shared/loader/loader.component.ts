@@ -1,12 +1,11 @@
 import {
   Component,
-  OnDestroy,
   ChangeDetectionStrategy,
   ChangeDetectorRef
 } from '@angular/core';
-import { Subscription } from 'rxjs/Rx';
-
-import { LoaderService } from './';
+import { Observable } from 'rxjs/Rx';
+import { Store } from '@ngrx/store';
+import { AppStore } from './../../core/store/app-store';
 
 @Component({
   selector: 'loader',
@@ -15,22 +14,11 @@ import { LoaderService } from './';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class LoaderComponent implements OnDestroy {
-  public show: boolean;
-  private subscription: Subscription;
+export class LoaderComponent {
+  public show: Observable<boolean>;
 
-  constructor(private _loaderService: LoaderService, private ref: ChangeDetectorRef) {
-    this.subscription = this._loaderService.isShown
-      .subscribe((isShown) => {
-        this.show = isShown;
-        this.ref.markForCheck();
-      });
-  }
-
-  public ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+  constructor(private store: Store<AppStore>, private ref: ChangeDetectorRef) {
+    this.show = this.store.select('loader');
   }
 
 }

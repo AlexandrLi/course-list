@@ -12,7 +12,7 @@ import {
     CanActivateViaAuthGuard,
     BreadcrumbsService
 } from './services';
-import { LoaderService } from './../shared/loader';
+import { loaderReducer } from './../shared/loader';
 import { INITIAL_STATE } from './store/app-store';
 import { userReducer, userTokenReducer } from '../authorization/user.reducer';
 
@@ -21,6 +21,7 @@ import { userReducer, userTokenReducer } from '../authorization/user.reducer';
         CommonModule,
         RouterModule,
         StoreModule.provideStore({
+            loader: loaderReducer,
             user: userReducer,
             userToken: userTokenReducer,
         }, INITIAL_STATE),
@@ -37,7 +38,6 @@ import { userReducer, userTokenReducer } from '../authorization/user.reducer';
         FooterComponent],
     providers: [
         AuthorizationService,
-        LoaderService,
         BreadcrumbsService,
         CanActivateViaAuthGuard
     ],

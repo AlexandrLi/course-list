@@ -1,9 +1,11 @@
+import { Store } from '@ngrx/store';
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { Subscription, Observable } from 'rxjs/Rx';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { User } from './../../authorization';
-import { LoaderService } from './../../shared/loader';
+import { AppStore } from './../store/app-store';
+import { HideLoaderAction, ShowLoaderAction } from './../../shared/loader';
 import { AuthorizationService, BreadcrumbsService } from './../services';
 
 @Component({
@@ -24,9 +26,8 @@ export class HeaderComponent implements OnDestroy {
         public authService: AuthorizationService,
         private breadcrumbsService: BreadcrumbsService,
         private router: Router,
-        private aRoute: ActivatedRoute,
         private ref: ChangeDetectorRef,
-        private loaderService: LoaderService) {
+        private store: Store<AppStore>) {
         this.breadcrumbs = this.breadcrumbsService.path;
         this.authService.userInfo
             .subscribe((user) => {
@@ -36,11 +37,11 @@ export class HeaderComponent implements OnDestroy {
     }
 
     public logout() {
-        this.loaderService.show();
+        this.store.dispatch(new ShowLoaderAction());
         this.subscriptions.push(this.authService
             .logout()
             .subscribe(() => {
-                this.loaderService.hide();
+                this.store.dispatch(new HideLoaderAction());
                 this.router.navigate(['/login']);
             }));
     }

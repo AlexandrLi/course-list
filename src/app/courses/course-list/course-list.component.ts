@@ -12,12 +12,13 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef
 } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Rx';
 
-import { LoaderService } from './../../shared/loader';
+import { HideLoaderAction, ShowLoaderAction } from './../../shared/loader';
 import { CoursesService } from './../shared';
 import { Course } from '../shared';
-import { ActivatedRoute } from '@angular/router';
+import { AppStore } from '../../core/store/app-store';
 
 @Component({
     selector: 'course-list',
@@ -41,12 +42,10 @@ export class CourseListComponent implements
     public pageNumber: number = 1;
     public count: number = 5;
     public isEndOfList: boolean = false;
-    private subscriptions: Subscription[] = [];
 
     constructor(
         private coursesService: CoursesService,
-        private loaderService: LoaderService,
-        private aRoute: ActivatedRoute,
+        private store: Store<AppStore>,
         private ref: ChangeDetectorRef) {
     }
 
@@ -62,13 +61,13 @@ export class CourseListComponent implements
         this.pageNumber = 1;
         this.query = query;
         this.isEndOfList = false;
-        this.loaderService.show();
+        this.store.dispatch(new ShowLoaderAction());
         this.coursesService.getCourseList(this.pageNumber, this.count, this.query)
             .subscribe((courses) => {
                 this.isEndOfList = courses.length === 0;
                 this.courses = courses;
                 this.ref.markForCheck();
-                this.loaderService.hide();
+                this.store.dispatch(new HideLoaderAction());
             });
     }
 
@@ -110,7 +109,7 @@ export class CourseListComponent implements
     }
 
     private updateCourses(): void {
-        this.loaderService.show();
+        this.store.dispatch(new ShowLoaderAction());
         this.coursesService.getCourseList(this.pageNumber, this.count, this.query)
             .subscribe((courses) => {
                 if (courses.length === 0) {
@@ -119,7 +118,7 @@ export class CourseListComponent implements
                     courses.forEach((course) => this.courses.push(course));
                 }
                 this.ref.markForCheck();
-                this.loaderService.hide();
+                this.store.dispatch(new HideLoaderAction());
             });
     }
 }
