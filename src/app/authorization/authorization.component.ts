@@ -10,10 +10,7 @@ import { LoaderService } from './../shared/loader';
   templateUrl: './authorization.component.html',
   styleUrls: ['./authorization.component.css']
 })
-export class AuthorizationComponent implements OnInit, OnDestroy {
-  public login: string = '';
-  public password: string = '';
-  private subscription: Subscription;
+export class AuthorizationComponent implements OnInit {
 
   constructor(
     private authService: AuthorizationService,
@@ -28,18 +25,11 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
     }
   }
 
-  public ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
-  }
-
   public submit(form): void {
     let login = form.value.login;
     let password = form.value.password;
     this.loaderService.show();
-    this.subscription = this.authService
-      .login(login, password)
+    this.authService.login(login, password)
       .subscribe(() => {
         this.loaderService.hide();
         this.router.navigate(['courses']);

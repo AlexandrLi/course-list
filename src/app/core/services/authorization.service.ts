@@ -1,3 +1,6 @@
+import { AddTokenAction, AddUserAction } from './../../authorization/user.actions';
+import { AppStore } from './../store/app-store';
+import { Store } from '@ngrx/store';
 import {
   Request,
   Headers,
@@ -16,14 +19,13 @@ export class AuthorizationService {
 
   private static USER_KEY: string = 'AMP-token';
   public userInfo: Observable<User>;
+  private userInfoSubject: BehaviorSubject<User | null> = new BehaviorSubject(null);
 
-  private userInfoSubject: BehaviorSubject<User>;
-
-  constructor(private http: AuthorizedHTTPService) {
-    this.userInfoSubject = new BehaviorSubject(new User());
-    if (this.isAuthenticated()) {
-      this.getUserInfo();
-    }
+  constructor(private http: AuthorizedHTTPService, private store: Store<AppStore>) {
+    this.store.select('user').subscribe((user: User) => this.userInfoSubject.next(user));
+    // if (this.isAuthenticated()) {
+    //   this.getUserInfo();
+    // }
     this.userInfo = this.userInfoSubject.asObservable();
   }
 
@@ -49,11 +51,13 @@ export class AuthorizationService {
 
   public logout(): Observable<boolean> {
     localStorage.removeItem(AuthorizationService.USER_KEY);
+    this.store.dispatch(new AddTokenAction(null));
     return Observable.of(true);
   }
 
   public isAuthenticated(): boolean {
-    return localStorage.getItem(AuthorizationService.USER_KEY) ? true : false;
+    // return localStorage.getItem(AuthorizationService.USER_KEY) ? true : false;
+    return !!this.userInfoSubject.getValue();
   }
 
   public getUserInfo() {
@@ -68,7 +72,8 @@ export class AuthorizationService {
       .map((res) => res.json())
       .subscribe((user) => {
         console.log(user);
-        this.userInfoSubject.next(new User(user.id, user.name.first));
+        this.store.dispatch(new AddUserAction(new User(user.id, user.name.first)));
+        // this.userInfoSubject.next(new User(user.id, user.name.first));
       });
   }
 }
