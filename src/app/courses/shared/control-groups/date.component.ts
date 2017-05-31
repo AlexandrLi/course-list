@@ -25,7 +25,6 @@ export class DateComponent implements ControlValueAccessor {
   public onTouched: any = () => { };
 
   public setValue(value) {
-    console.log(value.target);
     this.value = value.target.value;
   }
 
