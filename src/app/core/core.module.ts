@@ -5,7 +5,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { HeaderComponent } from './header';
-import { BreadcrumbsComponent } from './header/breadcrumbs';
+import { BreadcrumbsComponent, breadcrumbsReducer } from './header/breadcrumbs';
 import { FooterComponent } from './footer';
 import {
     AuthorizationService,
@@ -26,7 +26,7 @@ import { coursesReducer } from '../courses';
             user: userReducer,
             userToken: userTokenReducer,
             courses: coursesReducer,
-            breadcrumbs: {},
+            breadcrumbs: breadcrumbsReducer,
         }, INITIAL_STATE),
         StoreDevtoolsModule.instrumentOnlyWithExtension({
             maxAge: 5

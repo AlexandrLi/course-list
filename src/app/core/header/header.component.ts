@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { User } from './../../authorization';
 import { AppStore } from './../store/app-store';
 import { HideLoaderAction, ShowLoaderAction } from './../../shared/loader';
-import { AuthorizationService, BreadcrumbsService } from './../services';
+import { AuthorizationService } from './../services';
 
 @Component({
     selector: 'my-header',
@@ -24,11 +24,10 @@ export class HeaderComponent implements OnDestroy {
 
     constructor(
         public authService: AuthorizationService,
-        private breadcrumbsService: BreadcrumbsService,
         private router: Router,
         private ref: ChangeDetectorRef,
         private store: Store<AppStore>) {
-        this.breadcrumbs = this.breadcrumbsService.path;
+        this.breadcrumbs = this.store.select('breadcrumbs');
         this.authService.userInfo
             .subscribe((user) => {
                 this.currentUser = user;

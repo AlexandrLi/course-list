@@ -1,8 +1,10 @@
+import { SetPathAction } from './../../core/header/breadcrumbs/breadcrumbs.actions';
 import * as moment from 'moment';
 
 import { Observable } from 'rxjs/Rx';
+import { Store } from '@ngrx/store';
+import { AppStore } from './../../core/store/app-store';
 import { CoursesService, Course } from './../shared';
-import { BreadcrumbsService } from './../../core/services';
 import { DateValidators, DurationValidators, AuthorsValidators } from './../shared/validators';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -19,7 +21,7 @@ export class AddCourseComponent implements OnInit, OnDestroy {
   public courseForm: FormGroup;
   public authors: Observable<any[]>;
   constructor(
-    private breadcrumbsService: BreadcrumbsService,
+    private store: Store<AppStore>,
     private _router: Router,
     private aRoute: ActivatedRoute,
     private fb: FormBuilder,
@@ -54,7 +56,7 @@ export class AddCourseComponent implements OnInit, OnDestroy {
           this.currentCourse = result;
           this.courseForm.get('date').setValue(this.formatDate(this.currentCourse.date));
           this.courseForm.get('authors').setValue(this.currentCourse.authors);
-          this.breadcrumbsService.setPath(this.currentCourse.title);
+          this.store.dispatch(new SetPathAction(`>${this.currentCourse.title}`));
         },
         (err) => {
           if (err.status === 404) {
@@ -86,6 +88,6 @@ export class AddCourseComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy() {
-    this.breadcrumbsService.clearPath();
+    this.store.dispatch(new SetPathAction(null));
   }
 }
