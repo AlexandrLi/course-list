@@ -23,8 +23,9 @@ export class AuthorsComponent implements ControlValueAccessor {
   // tslint:disable-next-line:no-empty
   public onTouched: any = () => { };
 
-  public setValue(value) {
-    let id: number = value.target.value;
+  public setValue(id) {
+    // let id: number = value.target.value;
+    console.log(id);
     let currentIndex = this.checkedAuthors.findIndex((item) => item.id === id);
     if (currentIndex !== -1) {
       this.checkedAuthors.splice(currentIndex, 1);

@@ -73,15 +73,6 @@ export class CourseListComponent implements
         this.query = query;
         this.isEndOfList = false;
         this.updateCourses(this.pageNumber, this.requestCount, this.query);
-        // this.store.dispatch(new ShowLoaderAction());
-        // this.coursesService.getCourseList(this.pageNumber, this.count, this.query)
-        //     .subscribe((courses) => {
-        //         this.isEndOfList = courses.length === 0;
-        //         courses.pop();
-        //         this.store.dispatch(new AddCoursesAction(courses));
-        //         this.ref.markForCheck();
-        //         this.store.dispatch(new HideLoaderAction());
-        //     });
     }
 
     public ngOnInit(): void {
@@ -131,11 +122,9 @@ export class CourseListComponent implements
     }
 
     private updateCourses(pageNumber: number, requestCount: number, query: string): void {
-        // let itemsCount = this.count + 1;
         this.store.dispatch(new ShowLoaderAction());
         this.coursesService.getCourseList(pageNumber, requestCount, query)
             .subscribe((courses) => {
-                console.log(courses);
                 this.isEndOfList = courses.length < this.requestCount;
                 this.store.dispatch(new AddCoursesAction(courses.slice(0, this.count)));
                 this.ref.markForCheck();
