@@ -1,8 +1,8 @@
-import { AppStore } from './../core/store/app-store';
 import { Action } from '@ngrx/store';
 import { UserActionTypes } from './user.actions';
+import { User } from './';
 
-export function userReducer(state: AppStore, action: Action) {
+export function userReducer(state: User, action: Action) {
   switch (action.type) {
     case UserActionTypes.ADD_USER:
       return action.payload;
@@ -10,7 +10,7 @@ export function userReducer(state: AppStore, action: Action) {
       return state;
   }
 }
-export function userTokenReducer(state: AppStore, action: Action) {
+export function userTokenReducer(state: string, action: Action) {
   switch (action.type) {
     case UserActionTypes.ADD_TOKEN:
       return action.payload;

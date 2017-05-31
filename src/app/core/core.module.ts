@@ -12,9 +12,10 @@ import {
     CanActivateViaAuthGuard,
     BreadcrumbsService
 } from './services';
-import { loaderReducer } from './../shared/loader';
+import { loaderReducer } from '../shared/loader';
 import { INITIAL_STATE } from './store/app-store';
 import { userReducer, userTokenReducer } from '../authorization/user.reducer';
+import { coursesReducer } from '../courses';
 
 @NgModule({
     imports: [
@@ -24,6 +25,8 @@ import { userReducer, userTokenReducer } from '../authorization/user.reducer';
             loading: loaderReducer,
             user: userReducer,
             userToken: userTokenReducer,
+            courses: coursesReducer,
+            breadcrumbs: {},
         }, INITIAL_STATE),
         StoreDevtoolsModule.instrumentOnlyWithExtension({
             maxAge: 5

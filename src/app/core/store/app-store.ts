@@ -5,14 +5,14 @@ export const INITIAL_STATE: AppStore = {
   loading: false,
   user: null,
   userToken: initToken(),
-  currentId: null,
-  courses: []
+  courses: [],
+  breadcrumbs: null
 };
 
 export interface AppStore {
   user: User;
   userToken: string;
-  currentId: number;
+  breadcrumbs: string;
   courses: Course[];
   loading: boolean;
 }
