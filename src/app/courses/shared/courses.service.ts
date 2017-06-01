@@ -19,8 +19,8 @@ export class CoursesService {
   constructor(private http: AuthorizedHTTPService) {
   }
 
-  public getCourseList(pageNumber: number, count: number, query: string): Observable<Course[]> {
-    return this.http.get(`/courses?page=${pageNumber}&limit=${count}&query=${query}`)
+  public getCourseList(start: number, end: number, query: string): Observable<Course[]> {
+    return this.http.get(`/courses?start=${start}&end=${end}&query=${query}`)
       .map((res: Response) => res.json())
       .map((res: any[]) => res.map((item) => {
         return {

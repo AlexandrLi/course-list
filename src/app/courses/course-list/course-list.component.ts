@@ -82,8 +82,10 @@ export class CourseListComponent implements
 
     public addMoreCourses() {
         this.pageNumber++;
+        let start = (this.pageNumber - 1) * this.count;
+        let end = start + this.requestCount;
         this.store.dispatch(new ShowLoaderAction());
-        this.coursesService.getCourseList(this.pageNumber, this.requestCount, this.query)
+        this.coursesService.getCourseList(start, end, this.query)
             .subscribe((courses) => {
                 this.isEndOfList = courses.length < this.requestCount;
                 courses.slice(0, this.count)
@@ -123,7 +125,9 @@ export class CourseListComponent implements
 
     private updateCourses(pageNumber: number, requestCount: number, query: string): void {
         this.store.dispatch(new ShowLoaderAction());
-        this.coursesService.getCourseList(pageNumber, requestCount, query)
+        let start = (this.pageNumber - 1) * this.count;
+        let end = start + this.requestCount;
+        this.coursesService.getCourseList(start, end, query)
             .subscribe((courses) => {
                 this.isEndOfList = courses.length < this.requestCount;
                 this.store.dispatch(new AddCoursesAction(courses.slice(0, this.count)));
