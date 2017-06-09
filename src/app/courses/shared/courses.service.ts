@@ -22,16 +22,7 @@ export class CoursesService {
   public getCourseList(start: number, end: number, query: string): Observable<Course[]> {
     return this.http.get(`/courses?start=${start}&end=${end}&query=${query}`)
       .map((res: Response) => res.json())
-      .map((res: any[]) => res.map((item) => {
-        return {
-          id: item.id,
-          title: item.name,
-          duration: item.length,
-          date: new Date(item.date),
-          description: item.description,
-          topRated: item.isTopRated
-        };
-      }));
+      .map((res: any[]) => res.map((item) => { return this.mapCourseFromResponse(item) }));
   }
 
   public getAuthorsList(): Observable<any[]> {
@@ -39,7 +30,7 @@ export class CoursesService {
       .map((res: Response) => res.json());
   }
 
-  public createCourse(course: Course): Observable<Course> {
+  public createCourse(course: Course): Observable<number> {
     let requestOptions: RequestOptions = new RequestOptions({ headers: new Headers() });
     let request: Request;
 
